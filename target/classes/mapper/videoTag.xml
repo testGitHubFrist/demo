@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+   
+<mapper namespace="com.nilo.dao.VideoTagMapper">
+
+	<select id="queryTagListByVideoId" resultType="java.lang.String" 
+	        parameterType="java.lang.String">
+	        SELECT
+				IFNULL(tag.video_id, '') AS videoId
+				
+			FROM
+				video_video_tags tag
+			LEFT JOIN video_overlay_info overlay ON tag.overlay_id = overlay.overlay_id
+			LEFT JOIN video_tag_style_info style ON tag.tag_style_id= style.style_id
+			WHERE tag.video_id=#{videoId}
+			ORDER BY tag.tag_id 
+	</select>
+</mapper>
