@@ -39,6 +39,7 @@ public class TestAction {
 		logger.info("changmaidnsaoifh1");
 		logger.info("qwer");
 		logger.info("----------------e1------------------");
+		logger.info("----------------zsc------------------");
 		return "test-jsp";
 	}
 }
