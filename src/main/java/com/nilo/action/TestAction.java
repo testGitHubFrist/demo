@@ -36,6 +36,8 @@ public class TestAction {
 		model.addAttribute("list",list);
 		logger.info("----------------end------------------");
 		logger.info("changmaidnsaoifh");
+		logger.info("changmaidnsaoifh1");
+		logger.info("qwer");
 		return "test-jsp";
 	}
 }
