@@ -8,5 +8,12 @@
 </head>
 <body>
 Hello World!!!${a}
+<table>
+  <tr></tr>
+  <c:forEach items="${list}" var="user" >
+     <td>1${user}</td>
+  </c:forEach>
+  
+</table>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.nilo.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,7 +26,13 @@ public class TestAction {
 	public String test(Model model) throws Exception{
 		logger.info("----------------begin------------------");
 		model.addAttribute("a", "adwdsa");
-		List list=videoTagMapper.queryTagListByVideoId("a");
+		/*List list=videoTagMapper.queryTagListByVideoId("a");*/
+		List<String> list=new ArrayList<String>();
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.add("5");
 		model.addAttribute("list",list);
 		logger.info("----------------end------------------");
 		return "test-jsp";
