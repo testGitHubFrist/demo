@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface VideoTagMapper {
 
-
 	/**
 	 * 根据视频id 查询tag
 	 * @param videoId
