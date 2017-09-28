@@ -22,7 +22,7 @@ public class TestAction {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestAction.class);
 	@Autowired VideoTagMapper videoTagMapper;
-	@RequestMapping("test")
+	@RequestMapping(value="test")
 	public String test(Model model) throws Exception{
 		logger.info("----------------begin------------------");
 		model.addAttribute("a", "adwdsa");
@@ -35,6 +35,7 @@ public class TestAction {
 		list.add("5");
 		model.addAttribute("list",list);
 		logger.info("----------------end------------------");
+		logger.info("changmaidnsaoifh");
 		return "test-jsp";
 	}
 }
