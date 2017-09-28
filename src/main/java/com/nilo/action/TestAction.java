@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nilo.dao.VideoTagMapper;
 
+/**
+ * 
+ * @author 张善闯
+ * <p>这是个测试类
+ */
 @Controller
 public class TestAction {
 	
