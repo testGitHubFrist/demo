@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* CSS Document */
+@import url('public.css');
+
+/*视频播放*/
+body{overflow:hidden;}
+#videoPlayerDiv{}
+.tagDivBorderNes{position: absolute; z-index: 102; transition: top 1s,left 1s;}
+.tagDivBorderImg{position: absolute; left: 0; top: 0; display: block; z-index: 103;}
+
+.videoPreviewClose{width: 28px; height: 28px; display: block;  background: url(../images/videoTagClose.png) no-repeat 0 0;  position: absolute; right: -28px; top: 0px; transition: transform 0.5s;}
+.videoPreviewClose:hover{transform:rotate(180deg);}
+.videoPreviewPlanBottom{width: 100%; position: absolute; left: 0; bottom: 33px; height: 1px; background: #dcdce0;}
+.videoPreviewPlan{width: 100%; position: absolute; left: 0; bottom: 28px; height: 12px; cursor: pointer;}
+.videoPreviewPlanBg{width: 100%; height: 1px;  background: #dcdce0;  position: absolute;  top: 6px;  left: 0;}
+.videoPreviewPlanBg1{width: 0%;  height: 1px;  background: #2196f3;  position: absolute;  z-index: 2;  top: 6px;  left: 0;}
+.videoPreviewPlanBg2{width: 12px;  height: 12px;  background: url(../images/videoDragPlanSaasBg.png) no-repeat 0 0;  position: absolute;  z-index: 4;  top: 0;  left: 0; cursor: default;}
+
+.playSaasClass{width: 18px; height: 18px; position: absolute; bottom: 7px; left: 7px; background: url("../images/videoPause.png") no-repeat center center; cursor: pointer; }
+.pauseSaasClass{width: 18px; height: 18px; position: absolute; bottom: 7px; left: 7px; background: url("../images/videoPlay.png") no-repeat center center; cursor: pointer; }
+.timeSaas{position: absolute; left: 30px; bottom: 8px}
+.timeSaas b{font-weight: normal; margin-right: 6px}
+.timeSaas em{font-style: normal; color: #666979}
+.timeSaas span{color:#666979 }
+.voiceSaasClass{position: absolute; cursor: pointer; right: 7px; bottom: 7px; background: url("../images/videoVoice.png") no-repeat center center; width: 18px; height: 18px}
+.muteSaasClass{position: absolute; cursor: pointer; right: 7px; bottom: 7px; background: url("../images/videoMute.png") no-repeat center center; width: 18px; height: 18px}
+
+.videoPreviewBox{width: 100%; height: 100%; max-height: 100%; display: block; font-size:0; object-fit: fill;}
+#videoPreviewControl{width: 100%; z-index: 11;  overflow: hidden;  height: 52px;  background: #2f3242;  position: absolute; bottom: -50px; left: 0;
+  transition: bottom 0.3s ease-out;
+  -webkit-transition: bottom 0.3s ease-out;
+  -moz-transition: bottom 0.3s ease-out;}
+#videoPreviewControl.show{bottom: -1px;
+  -webkit-transition-delay: 0s !important;
+  transition-delay: 0s !important;
+}
+#videoPreviewBoxBigPlay{width: 68px; height: 70px; background: url(../images/videoBigPlay.png) no-repeat center center; z-index: 9; position: absolute; left: 50%; top: 50%; margin-left: -34px; margin-top: -35px; cursor: pointer; display:none;}
+#videoPreviewBoxBigPlay.videoPreviewBoxPlayNone{background: none;}
+.previewObjDivBeset{position: absolute;  width: 1000px; height: 520px; top: 0; left: 0;z-index:8; }
+.previewObjDivBg{position: absolute; width: 100%; height: 100%; z-index: 10; left:; top:0;}
+
+/*预览浮层overlay*/
+.videoPreviewOverlayBottom{width: 100%; height: 20%; position: absolute; z-index: 200; left: 0; top: 80%;}
+.videoPreviewOverlay{width: 520px; height: 328px; position: absolute; z-index: 200; left: 50%; top: 50%; margin: -164px 0 0 -260px}
+.videoPreviewOverlayCC{width: 520px; height: 328px; position: relative; display: none}
+.videoPreviewOverlayCCBg{position: absolute; top: 0; left: 0; width: 520px; height: 328px;}
+.videoPreviewOverlay1Bg{background: #fff; opacity: 0.8; filter:alpha(opacity=80);}
+.videoPreviewOverlay1{display: none}
+.videoPreviewOverlay1 h2{position: absolute; left: 25px; top: 38px; width: 308px; height: 50px; overflow: hidden; line-height: 25px; font-size: 20px; font-weight: normal}
+.videoPreviewOverlay1 h2 a{color: #252525}
+.videoPreviewOverlay1 h3{position: absolute; left: 25px; top: 100px; width: 210px; height: 58px; border: solid #000; border-width: 1px 0; color: #252525; font-size: 12px; line-height: 24px; overflow: hidden; padding-top: 5px; font-weight: normal}
+.videoPreviewOverlay1 h3 a{color: #252525;}
+.videoPreviewOverlay1 p{position: absolute; left: 25px; top: 180px; width: 256px; line-height: 20px; font-size: 12px; color: #7d7d7d}
+.videoPreviewOverlay1 p a{color: #7d7d7d}
+.videoPreviewOverlay1 .img{width: 214px; height: 240px; position: absolute; right: 0; top: 60px}
+.videoPreviewOverlay1 .img img{width: 214px; height: 240px;}
+.videoPreviewOverlay2Bg{background: #fff; opacity: 0.8; filter:alpha(opacity=80);}
+.videoPreviewOverlay2 h2{position: absolute; right: 0; top: 46px; width: 210px; height: 37px; line-height: 37px; border-bottom: 1px solid #000; font-size: 24px; font-weight: normal}
+.videoPreviewOverlay2 h2 a{color: #252525}
+.videoPreviewOverlay2 p{position: absolute; right: 0; top: 100px; width: 210px; font-size: 12px; line-height: 20px}
+.videoPreviewOverlay2 p a{color: #252525}
+.videoPreviewOverlay2 .img{width: 300px; height: 235px; position: absolute; left: 0; top:46px }
+.videoPreviewOverlay2 .img img{width: 300px; height: 235px;}
+.videoPreviewOverlayPlay{width: 1000px; height: 520px; position: absolute; left: 0; top: 0; margin: -96px 0 0 -240px;}
+#videoPreviewOverlayIdOne{transition: top 1s, left 1s}
+#videoPreviewOverlayIdTwo{transition: top 1s, left 1s}
+.zy_controls{z-index:11;}
+
+@media screen and (max-width:1000px){
+	#videoPlayerDiv{position: relative;}
+}
+@media screen and (min-width:1001px){
+	#videoPlayerDiv{width:100%; height:100%; position:relative;}
+}
+
+
+/* 竖屏 */
+@media screen and (orientation:portrait) {
+	#videoPreviewControl,#videoPreviewControl.show{bottom: －50px;}
+}
+
+/* 横屏 */
+@media screen and (orientation:landscape) {
+	#videoPreviewControl,#videoPreviewControl.show{bottom: 0px;}
+}

@@ -1,0 +1,352 @@
+@charset "utf-8";
+/* CSS Document */
+@import url('public.css');
+
+.pr{position:relative;}
+textarea{resize:none;}
+.mb15{margin-bottom:15px;}
+
+/*播放层级100  obj 100+  tag 200+  overlay 300+  overlayHerf 400 400  视频预览 500+*/
+.videoHeaderBg{width: 100%; background: #2f3242; height: 60px; border-bottom: 1px solid #505464}
+.videoHeader{width: 1200px; height: 60px; overflow: hidden; margin: 0 auto}
+.videoHeader h1{margin-top: 7px}
+.videoHeader p{line-height: 60px;}
+.videoHeader p span{float: left}
+.videoHeader p a{display: block; width: 16px; height: 17px; background: url("../images/videoSecede.png") no-repeat 0 0; float: left; margin: 20px 0 0 10px}
+.videoCrumbsBg{width: 100%; height: 40px; background: #222537}
+.videoCrumbs{width: 1200px; margin: 0 auto; font-size: 16px; line-height: 20px; }
+.videoCrumbs a{ font-size: 16px;   line-height: 40px; height: 40px;}
+.videoGoBank a{background: url("../images/videoGoBank.png") no-repeat 0 2px; padding-left: 20px}
+.objDivBorder{ position: absolute; border: 1px dashed #000; display: block; z-index: 1000; cursor:pointer;}
+.tagDivBorder{position: absolute; border: 1px dashed #000; display: block; z-index: 1002;cursor:pointer; backgroud: transparent;}
+.tagDivBorderNes{position: absolute; z-index: 102; transition: top 1s,left 1s;}
+
+.tagDivBorderImg{position: absolute; left: 0; top: 0; display: block;}
+.tagDivBorderA{position: absolute; display: block; top: -30px; left: 0; width: 150px; height: 30px; line-height: 30px; overflow: hidden; background: #000; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: center; color: #fff}
+.tagDivBorderTitleA{position: absolute; display: block; top: -60px; left: 0; width: 150px; height: 30px; line-height: 30px; overflow: hidden; background: #000;  text-align: center; color: #fff; border-top-left-radius: 5px; border-top-right-radius: 5px}
+
+.tagDivBorderTitleANew{position: absolute; display: block; top: 0px; left: 0; width: 0px; height: 0px; background: #000;  text-align: center; color: #fff; overflow: hidden; font-size: 14px;}
+.tagDivBorderSetUpA{position: absolute; display: block; top: -30px; left: 0; width: 150px; text-indent: 10px; height: 30px; z-index: 1003;line-height: 30px; overflow: hidden; background: #000; color: #fff; border-radius: 5px}
+.tagDivBorderSetUpA .delBtn{display:block; float: right; width: 30px; height: 30px; background:url(../images/deleteBtn.png) no-repeat;}
+.videoCenter{width: 1000px; margin: 0 auto; padding-top:25px;}
+.videoCenterL{width: 688px; float: left;}
+.videoCenterR{width: 290px; float: left; margin-left: 22px}
+.objDiv{ position: relative; width: 688px; height: 400px;}
+.videoSaasBox{width: 100%; height: 100%; max-height: 100%; display: block; font-size:0; position: absolute; object-fit: fill;}
+.objDivBeset{position: absolute;  width: 688px; height: 400px; top: 0; left: 0; }
+.objDivBg{ position: relative; width: 688px; height: 400px;z-index:100; overflow: hidden}
+.videoSaasPlay{ position: absolute; width: 688px; height: 400px; left: 0; top: 0; z-index: 100; }
+.videoSaasPlayNone{background: url("../images/videoBigPlay.png") no-repeat center center;}
+.playSaasClass{width: 18px; height: 18px; position: absolute; bottom: 7px; left: 7px; background: url("../images/videoPause.png") no-repeat center center; cursor: pointer; }
+.pauseSaasClass{width: 18px; height: 18px; position: absolute; bottom: 7px; left: 7px; background: url("../images/videoPlay.png") no-repeat center center; cursor: pointer; }
+.timeSaas{ position: absolute; left: 30px; bottom: 8px}
+.timeSaas b{font-weight: normal; margin-right: 6px}
+.timeSaas em{font-style: normal; color: #666979}
+.timeSaas span{color:#666979 }
+.voiceSaasClass{position: absolute; cursor: pointer; right: 7px; bottom: 7px; background: url("../images/videoVoice.png") no-repeat center center; width: 18px; height: 18px}
+.muteSaasClass{position: absolute; cursor: pointer; right: 7px; bottom: 7px; background: url("../images/videoMute.png") no-repeat center center; width: 18px; height: 18px}
+.videoControl{width: 688px; overflow: hidden; height: 52px; background: #2f3242; position: relative}
+.dragSaas{ width: 682px; height: 12px;  position: relative; }
+.dragSaasBg{width: 100%; height: 1px; background: #dcdce0; position: absolute; top: 6px; left: 0}
+.dragPlanSaas{ width: 12px; height: 12px; background: url("../images/videoDragPlanSaasBg.png") no-repeat 0 0; position: absolute; z-index: 4; top: 0; left: 0; cursor: pointer; /*transition: left 1s; *//*-moz-transition: left 1s; -webkit-transition: left 1s; -o-transition: left 1s*/}
+.dragPlanSaasBg{ width: 0; height: 1px; background: #2196f3; position: absolute; z-index: 2; top: 6px; left: 0; /*transition: width 1s; *//*-moz-transition: width 1s; -webkit-transition: width 1s; -o-transition: width 1s*/}
+.dragFilterSaas{width: 100%; height: 10px; background: #000; position: absolute; z-index: 3; top: 5px; left: 0; cursor: pointer;filter:alpha(opacity=0); opacity:0}
+.dragSaasAllBg{position: absolute; bottom: 28px;}
+.videoButton{width: 688px; height: 34px;  margin-top: 30px; margin-bottom: 30px; position: relative}
+.videoReadyReleases{position: absolute; right: -180px; top: 10px}
+.videoButton a{display:block; float: left; width: 124px; height: 32px; text-align: center; line-height: 32px; background: #404359; border-radius: 2px; margin: 0 22px}
+.videoButton a:hover{background: #2196f3}
+.videoCompile{width: 100%;background: #2d303f; overflow: hidden;}
+.videoCompileH{height: 452px; }
+.videoCompile h2{height: 40px; width: 100%; line-height: 40px; text-align: center; font-size: 16px; background: #3a3e52; font-weight: normal}
+.videoCompile .inputBox{ padding-bottom: 12px}
+.videoCompile .inputBoxBr{border-bottom: 1px solid #505464}
+.videoCompile .inputBox h4{line-height: 36px; font-weight: normal; text-indent: 7px; overflow:hidden;}
+.videoCompileTxt{border: 2px solid #2196f3; border-radius: 8px; background: #2f3242;  color: #fff}
+.videoCompileTxtW{width: 272px; height: 30px; margin-left: 7px; text-indent: 5px;}
+.videoCompileTextareaW{width: 262px; height: 86px; line-height: 40px; padding: 5px; margin-left: 7px}
+.videoCompileBtn{width: 126px; height: 34px; background: #2196f3; margin:12px auto; display: block; border-radius: 2px; color: #fff; cursor: pointer}
+/*tag*/
+.videoTagAll{width: 100%; position: absolute; height: 600px; z-index: 200; top: 101px; left: 0;/*  background: #15161e; */ display: none}
+.videoTagCenter{width: 1000px; margin: 0 auto; padding-top:25px;}
+
+.videoTagBg{float: left; width: 688px; height: 400px;}
+.videoTag{position: relative; width: 688px; height: 400px; overflow: hidden;}
+.videoTagBorder{position: absolute; border: 1px dashed #000; display: block; }
+.videoTagSmallIcon{position: absolute; visibility: hidden; display: block}
+.videoTagClose{width: 28px; height: 28px; display: block; background: url("../images/videoTagClose.png") no-repeat 0 0; position: absolute; right: 23px; top: 18px; transition: transform 0.5s; }
+.videoTagClose:hover{transform:rotate(180deg);}
+.videoTagCenterR{width: 290px; float: left; margin-left: 22px; position: relative}
+.videoTagCompile .inputBoxTag{overflow: hidden}
+.videoTagCompile .inputBoxTag div em{font-style: normal; font-size: 20px; width: 20px; height: 20px; display: block; text-align: center; line-height: 20px; float: left; cursor: pointer}
+.videoTagCompile .inputBoxTag div{float: left; margin: 10px 0}
+.videoTagCompile .inputBoxTag div input{width: 30px; height: 20px; text-align: center; border: 2px solid #2196f3; border-radius: 8px; float: left}
+.videoTagCompile .inputBoxTag div i{float: left; font-style: normal; display: block; height: 20px; line-height: 24px; width: 15px}
+.videoTagCompile .inputBoxTag div span{float: left; height: 20px; line-height: 20px}
+.videoTagCompile .inputBoxTag .videoX{margin: 10px 10px 7px}
+.videoTagCompile .inputBoxTag label{ float: right; line-height: 20px; height: 20px; margin: 10px 10px 10px 0px}
+
+.videoTagCompile .videoTagsubmit{ text-align: center; margin: 12px 0 50px}
+.videoTagCompile .videoTagsubmit .videoTagCompileBtn{width: 126px; height: 34px; background: #2196f3;  display: inline-block; border-radius: 2px; color: #fff; cursor: pointer}
+.videoTagCompile .videoTagsubmit .videoTagCompileBtnGoBack{width: 124px; height: 32px; background: #404359; border: 1px solid #4e5262;  display: inline-block; border-radius: 2px; color: #fff; cursor: pointer; margin-left: 7px}
+.videoTagCompileHref{position: absolute; left: -295px; top: 240px; width: 290px; display: none}
+.videoCompileImitationSelect{margin-left: 7px; width: 276px; height: 34px; position: relative;}
+.videoCompileImitationSelect h5{border: 2px solid #2196f3; border-radius: 8px; background: #2f3242; color: #fff;width: 272px; height: 30px;  line-height: 30px; font-weight: normal; font-size: 14px; background: url("../images/videoCompileImitationSelect.png") no-repeat 257px 8px}
+.videoCompileImitationSelect h5 img{display: inline-block; width:20px; height: 20px; float: left; margin: 5px }
+.videoCompileImitationSelect ul{position: absolute; top: 34px; left: 0; height: 100px; overflow-x: auto; width: 272px;}
+.videoCompileImitationSelect ul li{background: #2f3242; color: #fff;width: 100%; height: 30px;  line-height: 30px; font-weight: normal; font-size: 14px; overflow: hidden; cursor: pointer}
+.videoCompileImitationSelect ul li img{display: inline-block; width:20px; height: 20px; float: left; margin: 5px}
+.videoCompileImitationSelect ul li em{font-style: normal}
+.videoCompileImitationSelect h5 em{font-style: normal}
+.videoCompileImitationSelect ul li a{color: red; display: none}
+.videoCompileImitationSelect h5 a{color: red; display: none}
+/*overlay*/
+.videoOverlayAll{width: 100%; position: absolute; height: 1000px; z-index: 300; top: 101px; left: 0; /* background: #15161e; */ display: none}
+.videoOverlayRCompile{display: none}
+.videoOverlaySelectStyle{display: none}
+.videoOverlayCenter{width: 1000px; margin: 0 auto; padding-top:25px;}
+.videoOverlayL{float: left; width: 688px; height: 400px; position: relative; overflow:hidden;}
+.videoOverlayStyle{width: 290px; float: left; margin-left: 22px; position: relative}
+.videoOverlaySelectStyle ul{overflow-y: auto}
+.videoOverlaySelectStyle ul li{ margin: 15px auto; width: 228px; height: 133px; overflow: hidden}
+.videoOverlaySelectStyle ul li img{ width: 228px; height: 133px}
+.videoOverlaySelectStyle ul li em{display: none}
+.videoOverlayCanvas{width: 688px; height: 400px; opacity:0.9;}
+.videoOverlayRightBg{width: 54px; height: 118px; background:#3a3e52; position: absolute; right: 7px; top: 22px; filter:alpha(opacity=30); opacity:0.3; z-index: 3}
+.videoOverlayLClose{width: 17px; height: 15px; background: url("../images/videoOverlayClose.png") no-repeat 0 0; display: block; position: absolute; z-index: 4; right: 28px; top: 44px; overflow: hidden}
+.videoOverlayLStyle{width: 17px; height: 19px; background: url("../images/videoOverlayClose.png") no-repeat 0 -15px; display: block; position: absolute; z-index: 4; right: 28px; top: 90px; overflow: hidden}
+.videoOverlayCompileAll{width: 688px; height: 400px;}
+/*--居中横版--*/
+.videoOverlayCompile{width: 520px; height: 328px; position: absolute; left:89px; top:35px; background: #fff; display: none;}
+#videoOverlayCompileOne.style00{top:62px; height:276px;}
+.videoOverlayLCharacter{position: absolute; width: 100px; height: 100px}
+.videoOverlayCompileImg{left:8px; top:8px; width:188px; height:260px}
+.videoOverlayCompileImg img{width: 100%; height: 100%}
+.videoOverlayLCharacterBg{background: #15161e; height: 20px; line-height: 20px; border-radius: 20px; padding: 0 10px; position: absolute; left: 0; top: -20px; display: none}
+.videoOverlayLCharacterBgW{width: 26px;}
+.videoOverlayLMCharacterImg,.editLandingPageImg{display: inline-block; width: 16px; height: 16px; background: url("../images/videoOverlayLCharacterImg.png") no-repeat 0 0; margin: 2px 5px; background-size: 100% 100%}
+.videoOverlayLMHerf, .videoOverlay2PayHref{display: inline-block; width: 16px; height: 16px; background: url("../images/videoOverlayLCharacterHerf.png") no-repeat 0 0;  margin: 2px 5px; background-size: 100% 100%; text-indent: -160px; overflow: hidden}
+.videoOverlayCompile textarea{border: 1px solid #fff; overflow: hidden}
+.videoOverlayCompileTBorder{border:1px dashed #15161e!important;}
+.videoOverlayCompileTitle{left: 260px; top:46px; width:170px; height: 25px;}
+.videoOverlayCompileTitle input{width:100%; line-height: 25px; font-size: 24px;}
+.videoOverlayLCharacter textarea{width: 100%; height: 96%}
+.videoOverlayCompileSubhead{left:260px; top:80px; height: 18px;}
+.videoOverlayCompileSubhead input{font-size:18px; line-height: 18px;}
+.videoOverlayCompileCenter{left:260px; top:113px; width: 170px; height: 60px;}
+.videoOverlayCompileCenter textarea{font-size:16px; line-height: 20px;}
+/*--顶部横版--*/
+#videoOverlayCompileOne.style01{left:0; top:0; width:688px; height:50px;}
+#videoOverlayCompileOne.style01 .videoOverlayCompileImg, #videoOverlayCompileOne.style05 .videoOverlayCompileImg{left:10px; top:5px; width:41px; height:41px;}
+#videoOverlayCompileOne.style01 .videoOverlayCompileTitle, #videoOverlayCompileOne.style05 .videoOverlayCompileTitle{left:60px; top:12px; width:58px; height:22px;}
+#videoOverlayCompileOne.style01 .videoOverlayCompileSubhead, #videoOverlayCompileOne.style05 .videoOverlayCompileSubhead{left:132px; top:12px; width:143px; height:22px;}
+#videoOverlayCompileOne.style01 .videoOverlayCompileCenter, #videoOverlayCompileOne.style05 .videoOverlayCompileCenter{left:292px; top:5px; width:264px; height:42px;}
+#videoOverlayCompileOne.style01 .videoOverlayCompileBtn, #videoOverlayCompileOne.style05 .videoOverlayCompileBtn{left:auto; right:27px; top:10px;}
+/*--居中方块--*/
+#videoOverlayCompileOne.style02{left:140px; top:37px; width:400px; height:326px;}
+#videoOverlayCompileOne.style02 .videoOverlayCompileImg{left:18px; top:18px; width:177px; height:288px}
+#videoOverlayCompileOne.style02 .videoOverlayCompileTitle{left:213px; width:170px;}
+#videoOverlayCompileOne.style02 .videoOverlayCompileSubhead{left:213px; width:170px;}
+#videoOverlayCompileOne.style02 .videoOverlayCompileCenter{left:213px; width:170px;}
+#videoOverlayCompileOne.style02 .videoOverlayCompileBtn{left:213px;}
+/*--左侧竖版--*/
+#videoOverlayCompileOne.style03{left:0px; top:0px; width:264px; height:400px;}
+#videoOverlayCompileOne.style03 .videoOverlayCompileImg, #videoOverlayCompileOne.style04 .videoOverlayCompileImg{left:68px; top:30px; width:126px; height:165px}
+#videoOverlayCompileOne.style03 .videoOverlayCompileTitle, #videoOverlayCompileOne.style04 .videoOverlayCompileTitle{left:52px; top:207px;}
+#videoOverlayCompileOne.style03 .videoOverlayCompileSubhead, #videoOverlayCompileOne.style04 .videoOverlayCompileSubhead{left:52px; top:240px;}
+#videoOverlayCompileOne.style03 input, #videoOverlayCompileOne.style04 input{ width:170px; text-align:center;}
+#videoOverlayCompileOne.style03 .videoOverlayCompileCenter, #videoOverlayCompileOne.style04 .videoOverlayCompileCenter{left:52px; top:272px; width:170px;}
+#videoOverlayCompileOne.style03 .videoOverlayCompileBtn, #videoOverlayCompileOne.style04 .videoOverlayCompileBtn{left:91px; top:346px;}
+/*--右侧竖版--*/
+#videoOverlayCompileOne.style04{left:auto; right:0px; top:0px; width:264px; height:400px;}
+/*--底部横版--*/
+#videoOverlayCompileOne.style05{left:0; top:auto; bottom:0; width:688px; height:50px;}
+
+.videoOverlayCompile02Img{position: absolute; left: 0; top: 45px; width: 278px; height: 228px}
+.videoOverlayCompile02Img img{width: 278px; height: 228px}
+.videoOverlayCompile02Title{ position: absolute; width: 215px; border-bottom: 2px solid #000; position: absolute; right: 5px; top: 30px; height: 40px;}
+.videoOverlayCompile02Title textarea{line-height: 40px; font-size: 24px}
+.videoOverlayCompile02Center{width: 215px; height: 210px; position: absolute; top: 90px; right: 5px}
+.videoOverlayCompile02Center textarea{line-height: 20px}
+/*浮层链接*/
+.videoOverlayAddHImg{width: 100%; position: absolute; height: 1200px; z-index: 400; top: 101px; left: 0; background: #15161e; display: none}
+.videoOverlayAddHerf, .videoOverlay2Pay, .landingPageAddImgHref{width: 300px; margin: 0 auto; padding-top: 30px; display: none}
+.videoOverlay2Pay{width:400px;}
+.videoOverlayAddHImg .txt{border: 2px solid #2196f3; border-radius: 40px; background: #2f3242;  color: #fff; width: 300px; height: 40px; line-height: 40px; text-align: center}
+.videoOverlay2Pay li{margin-bottom:15px;}
+.videoOverlayAddHerf .btn, .videoOverlay2Pay .btn{ text-align: center; width: 100%; height: 34px; margin-top: 20px}
+.videoOverlayAddHerf .btn .sub, .videoOverlay2Pay .btn .sub{width: 126px; height: 34px; background: #2196f3;  display: inline-block; border-radius: 2px; color: #fff; cursor: pointer}
+.videoOverlayAddHerf .btn .subClose, .videoOverlay2Pay .btn .subClose{width: 124px; height: 32px; background: #404359; border: 1px solid #4e5262;  display: inline-block; border-radius: 2px; color: #fff; cursor: pointer; margin-left: 7px}
+.videoOverlayAddImg{width: 300px; margin: 0 auto; padding-top: 30px; display: none}
+.videoOverlayAddImg .filesBg, .landingPageAddImgHref .filesBg{width: 192px; height: 128px; position: relative; margin: 0 auto}
+.videoOverlayAddImg .filesBg .bg, .landingPageAddImgHref .filesBg .bg{position: absolute; left: 0; top: 0; width: 192px; height: 128px; background: #3a3e52 url("../images/videoOverlayAddImg.png") no-repeat center center;}
+.videoOverlayAddImg .filesBg .files, .landingPageAddImgHref .filesBg .files{width: 192px; height: 128px; position: absolute; left: 0; top: 0; filter:alpha(opacity=0); opacity:0}
+.videoOverlayAddImg .img, .landingPageAddImgHref .img{width: 192px; height: 128px;  margin:20px auto; display: block;}
+.videoOverlayAddImg .btn, .landingPageAddImgHref .btn{ text-align: center; width: 100%; height: 34px; margin-top: 20px}
+.videoOverlayAddImg .btn .sub, .landingPageAddImgHref .btn .sub{width: 126px; height: 34px; background: #2196f3;  display: inline-block; border-radius: 2px; color: #fff; cursor: pointer}
+.videoOverlayAddImg .btn .subClose, .landingPageAddImgHref .btn .subClose{width: 124px; height: 32px; background: #404359; border: 1px solid #4e5262;  display: inline-block; border-radius: 2px; color: #fff; cursor: pointer; margin-left: 7px}
+/*视频预览*/
+.videoPreview{ width: 100%; position: absolute; height: 1000px; z-index: 500; top: 101px; left: 0;}
+.videoPreviewBg{width: 100%; position: absolute; height: 1000px; top: 0px; left: 0; background: #15161e; filter:alpha(opacity=30); opacity:0.3}
+.videoPreviewCC{width: 1000px; height: 520px; margin: 20px auto; position: relative;  z-index: 1; background: #15161e}
+.videoPreviewClose{    width: 28px; height: 28px; display: block;  background: url(../images/videoTagClose.png) no-repeat 0 0;  position: absolute; right: -28px; top: 0px; transition: transform 0.5s;}
+.videoPreviewClose:hover{transform:rotate(180deg);}
+.videoPreviewPlanBottom{width: 100%; position: absolute; left: 0; bottom: 33px; height: 1px; background: #dcdce0;}
+.videoPreviewPlan{width: 988px; position: absolute; left: 0; bottom: 28px; height: 12px;}
+.videoPreviewPlanBg{width: 100%; height: 1px;  background: #dcdce0;  position: absolute;  top: 6px;  left: 0;}
+.videoPreviewPlanBg1{width: 0%;  height: 1px;  background: #2196f3;  position: absolute;  z-index: 2;  top: 6px;  left: 0;}
+.videoPreviewPlanBg2{width: 12px;  height: 12px;  background: url(../images/videoDragPlanSaasBg.png) no-repeat 0 0;  position: absolute;  z-index: 4;  top: 0;  left: 0;  cursor: pointer;}
+.videoPreviewBox{width: 100%; height: 100%; max-height: 100%; display: block; font-size:0; position: absolute; object-fit: fill;}
+.videoPreviewControl{width: 100%; z-index: 10;  overflow: hidden;  height: 52px;  background: #2f3242;  position: absolute; bottom: 0; left: 0}
+.videoPreviewBoxPlay{width: 1000px; height: 520px; z-index: 9; position: absolute; left: 0; top: 0; }
+.videoPreviewBoxPlayNone{background: url(../images/videoBigPlay.png) no-repeat center center;}
+.previewObjDivBeset{position: absolute;  width: 1000px; height: 520px; top: 0; left: 0;z-index:8; }
+.previewObjDivBg{ position: absolute; width: 1000px; height: 520px;z-index:8; }
+
+/*预览浮层overlay*/
+.videoPreviewOverlayBottom{width: 100%; height: 20%; position: absolute; z-index: 200; left: 0; top: 80%;}
+.videoPreviewOverlay{width: 520px; height: 328px; position: absolute; z-index: 200; left: 50%; top: 50%; margin: -164px 0 0 -260px}
+.videoPreviewOverlayCC{width: 520px; height: 328px; position: relative; display: none}
+.videoPreviewOverlayCCBg{position: absolute; top: 0; left: 0; width: 520px; height: 328px;}
+.videoPreviewOverlay1Bg{background: #fff; opacity: 0.8; filter:alpha(opacity=80);}
+.videoPreviewOverlay1{display: none}
+.videoPreviewOverlay1 h2{position: absolute; left: 25px; top: 38px; width: 308px; height: 50px; overflow: hidden; line-height: 25px; font-size: 20px; font-weight: normal}
+.videoPreviewOverlay1 h2 a{color: #252525}
+.videoPreviewOverlay1 h3{position: absolute; left: 25px; top: 100px; width: 210px; height: 58px; border: solid #000; border-width: 1px 0; color: #252525; font-size: 12px; line-height: 24px; overflow: hidden; padding-top: 5px; font-weight: normal}
+.videoPreviewOverlay1 h3 a{color: #252525;}
+.videoPreviewOverlay1 p{position: absolute; left: 25px; top: 180px; width: 256px; line-height: 20px; font-size: 12px; color: #7d7d7d}
+.videoPreviewOverlay1 p a{color: #7d7d7d}
+.videoPreviewOverlay1 .img{width: 214px; height: 240px; position: absolute; right: 0; top: 60px}
+.videoPreviewOverlay1 .img img{width: 214px; height: 240px;}
+.videoPreviewOverlay2Bg{ background: #fff; opacity: 0.8; filter:alpha(opacity=80);}
+.videoPreviewOverlay2 h2{position: absolute; right: 0; top: 46px; width: 210px; height: 37px; line-height: 37px; border-bottom: 1px solid #000; font-size: 24px; font-weight: normal}
+.videoPreviewOverlay2 h2 a{color: #252525}
+.videoPreviewOverlay2 p{position: absolute; right: 0; top: 100px; width: 210px; font-size: 12px; line-height: 20px}
+.videoPreviewOverlay2 p a{color: #252525}
+.videoPreviewOverlay2 .img{width: 300px; height: 235px; position: absolute; left: 0; top:46px }
+.videoPreviewOverlay2 .img img{width: 300px; height: 235px;}
+.videoPreviewOverlayPlay{width: 1000px; height: 520px; position: absolute; left: 0; top: 0; margin: -96px 0 0 -240px;}
+#videoPreviewOverlayIdOne{transition: top 1s, left 1s}
+#videoPreviewOverlayIdTwo{transition: top 1s, left 1s}
+
+
+/*列表*/
+.indexListCenter{width: 916px; margin: 0 auto; overflow: hidden}
+.indexListCenter .cc{width: 945px; margin-left: -29px; overflow: hidden}
+.indexListCenter .cc .one{margin:20px 0 0 29px; float: left; height: 260px; position: relative; text-align: center; width: 200px}
+.indexListCenter .cc .one .imglist{width: 100%; height: 127px; max-height: 100%; display: block; font-size:0;  object-fit: fill; background: url("../images/listVideoBg.jpg") no-repeat 0 0}
+.indexListCenter .cc .one .title{width: 100%; height: 60px; margin: 10px 0;}
+.indexListCenter .cc .one h2{width: 100%; height: 32px; line-height: 32px; overflow: hidden;  font-size: 16px; font-weight: normal}
+.indexListCenter .cc .one h4{font-size: 14px; width: 100%; height: 28px; line-height: 28px; overflow: hidden;font-weight: normal}
+.indexListCenter .cc .one .btn{width: 126px; height: 34px; text-align: center; line-height: 34px; background: #2196f3; border-radius: 4px; margin-left: 25px}
+.indexListCenter .cc .one .ico{width: 16px; height: 20px; background-image: url("../images/indexListIco.png"); background-repeat: no-repeat; position: absolute; left: 170px; top: 218px}
+.indexListCenter .cc .one .ico1{background-position: 0 0;}
+.indexListCenter .cc .one .ico2{background-position: 0 -20px;}
+.indexListCenter .cc .one .ico3{background-position: 0 -40px;}
+.indexListCenter .cc .one .ico4{background-position: 0 -60px;}
+.indexListCenter .cc .one .ico5{background-position: 0 -80px;}
+.indexListCenter .page{width: 100%; height: 30px; line-height: 30px; /* padding: 20px 0; */ text-align: center}
+.indexListCenter .page b{font-weight: normal}
+.indexListCenter .page a{margin: 0 5px}
+.indexListCenter .page .active{color: #2196f3}
+.indexListCenter .page a:hover{color: #2196f3}
+.indexListCenter .page .forbid{color: #9ca1b2}
+/*
+上传*/
+.uploadingCenter{width: 270px; margin: 0 auto; text-align: center}
+.uploadingCenter .files{width: 200px; height: 126px; position: relative; margin: 70px auto 10px; background: #3a3e52 url("../images/videoOverlayAddImg.png") no-repeat center center;}
+.uploadingCenter .files input{width: 200px; height: 126px; filter:alpha(opacity=0); opacity:0; cursor: pointer}
+.uploadingCenter p{color: #9ca1b2; width: 100%; line-height: 30px;}
+.uploadingCenter h2{ height: 30px; line-height: 30px; width: 100%; margin: 40px 0; font-size: 16px; color: #fff; clear: both}
+.uploadingCenter .location{ width: 266px; height: 30px; border-radius: 30px; text-align: center; border: 2px solid #256caa; background: #2b2d3c; color: #fff}
+.uploadingCenter .btn{width: 128px; height: 36px; display: inline-block; margin: 20px 0; background: #2196f3; color: #fff; font-size: 16px; border-radius: 2px; cursor: pointer}
+
+/*login*/
+.login{background:#2b2d3c;width:100%;height:100%;}
+.login_bg{height:729px;width:auto;background:url(../images/login_bg.png) no-repeat center;}
+.bg_logo{padding:20px 0 40px;}
+.login_conainter{position:absolute;top:0;left:0;bottom:0;right:0;text-align:center;margin:auto;width:500px;height:400px;}
+.login_win{margin:0 25% }
+.label{margin:25px 0;}
+.label .input_txt{background:rgba(89,180,252,.15);height:30px;text-align:center;color:#fefeff;}
+.login_win .login_btn input{margin-top:20px;width:126px;height:35px;border-radius:4px;-webkit-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;-moz-border-radius:4px;}
+.input_txt{width:100%;height:25px;line-height:25px;border:2px solid #2196f3;background:transparent;border-radius:20px;outline:none;color:rgba(255,255,255,.5);text-indent:15px; color: #fff}
+
+/*luof*/
+*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.pa{position:absolute;}
+.dn{display:none;}
+
+.addTag{-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out;position:absolute;background:#2196f3;top:15px;left:15px;z-index:199;width:50px;height:50px;border-radius:100%;cursor:pointer}
+.closeTag{z-index:201;}
+.tooltip{background-color:#8bbca7;border-radius:3px;width: 150px;padding: 10px;position: absolute;left:60px; top: 6px; color:#fff;}
+.tooltip:after{content:'';position:absolute;border:6px solid #8bbca7;border-color:transparent #8bbca7 transparent transparent;width:0;height:0;left:-12px;bottom:50%;margin-bottom:-6px;}
+
+.addTag .plusCross{font-size:1.8rem; text-align:center; line-height:46px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+.addTag .expandingDottedLine{-webkit-transition:all .2s ease-in-out;transition:all .2s ease-in-out;position:absolute;width:50px;height:50px;top:50%;left:50%;margin:-25px;border-radius:100%;border:1px dotted #7bafa8;z-index:-1}
+
+.addTag:hover{background:#8bbca7}
+.addTag:hover .plusCross{}
+.addTag:hover .expandingDottedLine{width:66px;height:66px;margin:-33px;border:2px dotted #7bafa8}
+
+#writeCanvas{z-index:200;}
+
+#videoCtrl.active,#videoBtns.active{opacity:0.2;}
+#editPopup{position:relative; cursor:pointer; width:272px; height:30px; left:7px; top:-6px; padding:12px 0 22px 5px; border:2px solid #2196f3; border-top:none; border-bottom-left-radius:8px; border-bottom-right-radius:8px; font-size:12px;}
+.videoCenterR.active{opacity:0;}
+.videoTagCenterR.active{opacity:0.3;}
+.videoOverlayCompileBtn{left:260px; top:196px; width:auto; height:auto;}
+.videoOverlayCompileBtn.leftBtm{right:auto; left:10px; top:auto; bottom:10px;}
+.videoOverlayCompileBtn .go2PayBtn{display:block; padding:0 24px; height:28px; line-height:28px; background:#39b54a; color:#fff; font-size:16px; border-radius:20px;}
+#videoTagBorderBrId.select{/* border: 1px solid #7bafa8; */}
+
+#showLoading{display:none; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8);}
+#showLoading .l{position:absolute; left:50%; top:50%; margin:-50px 0 0 -50px;}
+
+#editLandingPageId{background:#2b2d3c;}
+#editLandingPageId .videoOverlayL{width:640px;}
+#editLandingPageId .landingPageCompile{display:none;}
+#landingPageTemplate{height:1000px; overflow-x:hidden; overflow-y:scroll;}
+#landingPageTemplate li{margin-bottom:10px; border:1px solid #2d303f; transform:scale(0.99,0.99); cursor:pointer;}
+#landingPageTemplate li:hover,#landingPageTemplate li.selected{border-color:#2196f3; transform:scale(1,1);}
+#landingPageTemplate img{width:100%;}
+#editLandingPageId a{cursor:pointer;}
+#editLandingPageId .videoOverlayCompileAll{background:rgba(255,255,255,0.8); width:640px; height:1137px; overflow-x:hidden; overflow-y:scroll;}
+#editLandingPageId .videoOverlayRightBg{height:59px;}
+#editLandingPageId .editLandingPageClose{width: 17px; height: 15px; background: url("../images/videoOverlayClose.png") no-repeat 0 0; display: block; position: absolute; z-index: 4; right: 16px; top: 24px;}
+#editLandingPageId .videoOverlayLCharacterBg{left:10px; top:10px; z-index:1;}
+#editLandingPageId .landingPageCanvas{display:block;}
+#editLandingPageId .landingPageCanvas:hover,#editLandingPageId .landingPageImgTpl:hover{transform:scale(0.98,0.98);}
+#editLandingPageId .landingPageImgTpl{width:640px; position:relative;}
+#editLandingPageId .landingPageImgTpl.link{cursor:pointer;}
+#editLandingPageId .landingPageImgTpl .nextPage{position:absolute; left:50%; bottom:33px; width:54px; height:28px; margin-left:-27px; background:url(../images/downArrow.png) no-repeat;}
+#editLandingPageId .landingPageImgTpl.t1{background:url(../images/landingPageImg01.jpg) no-repeat;}
+#editLandingPageId #t1Pos1{background-position:0 0; height:398px;}
+#editLandingPageId #t1Pos2{background-position:0 -793px; height:343px;}
+#editLandingPageId #t1Pos3{background-position:0 -1136px; height:1136px;}
+#editLandingPageId #t1Pos4{background-position:0 -2272px; height:1208px;}
+#editLandingPageId #t1Pos5{background-position:0 -3480px; height:1136px;}
+#editLandingPageId #t1Pos6{background:url(../images/commentBg1.jpg) center bottom no-repeat #fff; height:182px;}
+#editLandingPageId .landingPageImgTpl.t2{width:640px; background:url(../images/landingPageImg02.jpg) no-repeat;}
+#editLandingPageId #t2Pos1{background-position:0 -397px; height:683px;}
+#editLandingPageId #t2Pos2{background-position:0 -1136px; height:1136px;}
+#editLandingPageId #t2Pos3{background-position:0 -2272px; height:1136px;}
+#editLandingPageId #t2Pos4{background-position:0 -3408px; height:1136px;}
+#editLandingPageId #t2Pos5{background:url(../images/commentBg2.jpg) center bottom no-repeat #fff; height:179px;}
+#editLandingPageId .landingPageImgTpl.t3{width:640px; background:url(../images/landingPageImg03.jpg) no-repeat;}
+#editLandingPageId #t3Pos1{background-position:0 -398px; height:738px;}
+#editLandingPageId #t3Pos2{background-position:0 -1136px; height:1136px;}
+#editLandingPageId #t3Pos3{background-position:0 -2272px; height:1136px;}
+#editLandingPageId #t3Pos4{background-position:0 -3408px; height:1136px;}
+#editLandingPageId #t3Pos5{background-position:0 -4544px; height:1136px;}
+#editLandingPageId #t3Pos6{background:url(../images/commentBg3.jpg) center bottom no-repeat #fff; height:177px;}
+
+#landingPageImgHref{margin-bottom:10px;}
+#landingPageImg{border:1px solid white;}
+
+
+#loading{position:fixed; left:0; top:0; width:100%; height:100%; z-index:999; background:rgba(0,0,0,0.8);}
+
+#loading .s{position:absolute; width:100%; top:42%; text-align:center; line-height:20px;}
+#loading .s span{display:inline-block; width:16px; height:20px; background:url(../images/loading.gif) center no-repeat; margin-right:5px; position:relative; top:5px;}
+#loading .s span.tips{width:20px; background-image:url(../images/tips.gif); top:2px;}

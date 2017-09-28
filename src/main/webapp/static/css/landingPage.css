@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+html{font-size:16px;}
+body,iframe,div,ul,li,dl,dt,dd,p{margin:0; padding:0;}
+li{list-style-type:none;}
+input{border:none; -webkit-appearance:none;}
+.dn{display:none;}
+
+#loading{height:100%; background:url(../images/favicon.ico) 50% no-repeat; animation:loading 0.4s linear infinite;}
+#fullPage.hide{opacity:0;}
+#fullPage .section{overflow:hidden;}
+#fullPage .section:last-child{background:#e1e1e1; border-left:5px solid #fff; border-right:5px solid #fff;}
+
+#fullPage .fp-tableCell{vertical-align:top;}
+.section img{width:100%;}
+#nextPage{display:none; position:fixed; z-index:999; left:0; bottom:0; width:100%; height:60px; background:url(../images/downArrow.png) center center no-repeat; background-size:27px 14px;}
+#commentBg1{background:url(../images/commentBg1.jpg) center bottom no-repeat #fff; padding-top:28px; height:48px; background-size:auto 48px;}
+#commentBg2{background:url(../images/commentBg2.jpg) center bottom no-repeat #fff; padding-top:29px; height:46px; background-size:auto 46px;}
+#commentBg3{background:url(../images/commentBg3.jpg) center bottom no-repeat #fff; padding-top:29px; height:45.5px; background-size:auto 45.5px;}
+.commentDiv{background:#fff;}
+#like{padding-top:16px; overflow:hidden;}
+#like li{float:left; width:25%; height:70px; text-align:center; cursor:pointer; font-size:0.8rem; color:#898989;}
+#like em{display:block; width:26px; height:26px; margin:0 auto; background:url(../images/likeBg.png) no-repeat; background-size:cover; margin-bottom:6px;}
+#like em.icon1{background-position:0 0;}
+#like em.icon2{background-position:-52px 0;}
+#like em.icon3{background-position:-104px 0;}
+#like em.icon4{background-position:-156px 0;}
+#like .click .icon1{background-position:-208px 0;}
+#like .click .icon2{background-position:-260px 0;}
+#like .click .icon3{background-position:-312px 0;}
+#like .click .icon4{background-position:-364px 0;}
+#commentList{background:#e1e1e1; height:280px; overflow-x:hidden; overflow-y:auto;}
+#loadMore{background:#e1e1e1; display:block; width:100%; padding:5px 0 10px; text-align:center; font-size:0.75rem; cursor:pointer;}
+#commentList dl{border-bottom:2px solid #fff; padding:20px 36px 20px 15px; min-height:20px; overflow:hidden; position:relative;}
+#commentList dl dt, #addComment .headImgs, #addComment .headImgs li{width:25px; height:25px; float:left; margin-right:8px; background-image:url(../images/headImg.png); background-position:0 0; background-repeat:no-repeat; background-size:25px 25px;}
+/* #commentList dl dt.headImg1, #addComment .headImgs.headImg1, #addComment .headImgs li.headImg1{background-image:url(../images/headImg01.png);}
+#commentList dl dt.headImg2, #addComment .headImgs.headImg2, #addComment .headImgs li.headImg2{background-image:url(../images/headImg02.png);}
+#commentList dl dt.headImg3, #addComment .headImgs.headImg3, #addComment .headImgs li.headImg3{background-image:url(../images/headImg03.png);}
+#commentList dl dt.headImg4, #addComment .headImgs.headImg4, #addComment .headImgs li.headImg4{background-image:url(../images/headImg04.png);}
+#commentList dl dt.headImg5, #addComment .headImgs.headImg5, #addComment .headImgs li.headImg5{background-image:url(../images/headImg05.png);} */
+#commentList dl dd{float:left; width:calc(100%/1.2); color:#85898b; font-size:0.75rem;}
+#commentList dd .ip{color:#262b2e;}
+#commentList dd .ymd{margin-left:12px;}
+#commentList dd .con{padding-top:6px;}
+#commentList dd .time{position:absolute; right:20px; top:50%; height:0.75rem; margin-top:-0.38rem;}
+#addComment{position:absolute; left:0; bottom:0; width:100%;}
+#addComment .wrap{padding:10px 10px 15px 15px; height:25px; background:#e7e7e7; border-top:2px solid #fff;}
+#addComment .wrap .headImgs{postion:relative;}
+#addComment .wrap .headImgs ul{position:absolute; left:20px; bottom:40px; width:25px; height:135px; z-index:2; display:none;}
+#addComment .wrap .headImgs li{float:none; margin-bottom:2px;}
+#commentCon{height:25px; width:calc(100%/2); padding:0 10px; background:#fff; color:#464646; font-size:0.7rem; border-radius:3px; margin-right:5px;}
+#commentSent{height:25px; width:61px; background:#898989; color:#464646; font-size:10px; border-radius:3px; position:relative; top:-1px; cursor:pointer;}
+#commentSent.on{background:#fff;}
+
+@keyframes loading{
+	from{transform:rotate(0deg);}
+	to{transform:rotate(360deg);}
+}
+
+@media all and (min-width: 400px) and (max-width: 640px){
+	#commentList{height:320px;}
+}
+
+@media all and (min-width: 640px){
+	#fullPage{width:640px; margin:0 auto;}
+	#fullPage.fullScreen{width:1000px;}
+}

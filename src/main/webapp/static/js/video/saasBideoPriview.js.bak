@@ -1,0 +1,503 @@
+/**
+ * Created by baikaishui on 2017/5/16.
+ */ 
+
+var vm = new Vue({
+    //绑定
+    el: "#saasVideoEditings",
+    //数据
+    data: {
+        //视频编辑
+        vueCompileTitle:'',
+        vueCompileSubhead:'',
+        vueCompileCenter:'',
+        vueCompileVideoSrc:'', 
+    },
+    //加载
+    mounted: function () {
+        this.$nextTick(function () {
+            this.queryAddress(); 
+        });
+
+    },
+    //计算
+    computed: {
+       /* aDouble: function () {
+            return this.videoFrameRate
+        }*/
+    },
+    //方法
+    methods: {
+        //获取视频信息
+        queryAddress: function () {
+        	var oSaasListQuit=nilo.getById('saasListQuit'); //退出
+            var oSaasBack2=nilo.getById('saasBack2'); //退出
+            var oSaasBack1=nilo.getById('saasBack1'); //退出
+            var oSaasListUserName=nilo.getById('saasListUserName');//用户名;
+
+            oSaasListQuit.onclick=function () {
+                nilo.removeCookie('ticket');
+                nilo.removeCookie('nickName');
+                window.location=__baseURL;
+            }
+            oSaasBack1.onclick=function () { 
+                window.location=__baseURL+"video/videolist?page=1";
+            }
+            oSaasBack2.onclick=function () { 
+                window.location=__baseURL+"video/videolist?page=1";
+            }
+            
+            oSaasListUserName.innerHTML=nilo.getCookie('nickName');
+
+            if(nilo.getCookie('ticket')==null || nilo.getCookie('ticket')==''){
+            	window.location=__baseURL;
+            }
+            var listTicket=nilo.getCookie('ticket');
+            var _self = this;
+            var locationSearch=location.search;
+            var locationSearchSub=locationSearch.substring(1,locationSearch.length); 
+            this.$http.post(__baseURL+"/video/description",{ticket:listTicket,videoId:locationSearchSub},{emulateJSON: true})
+                .then(
+                    (response)=>{
+                /*console.log(response);*/
+                var listData=response.data;
+                if(listData.responseCode==100000){
+                    _self.vueCompileTitle=listData.data.titel1;
+                    _self.vueCompileSubhead=listData.data.titel2;
+                    _self.vueCompileCenter=listData.data.description;
+                    _self.vueCompileVideoSrc=listData.data.url;
+                    /*console.log(listData.data.description)
+                    console.log(listData)*/
+                }
+        },
+            (error)=>{
+                console.log(error);
+            }
+            );
+        },
+
+     }
+});
+
+(function () {
+    var locationHerf=__baseURL;
+    var locationSearch=location.search;
+    //var locationSearch='?videoId=7ujn3scved';
+    var locationSearchSub=locationSearch.substring(1,locationSearch.length);
+    
+    var videoFrameRate = 25;
+    var videoWidth=640; //视频分辨率
+    var videoHeight=480;//视频分辨率
+    
+    var ajaxData; //object数据
+    var frameList;
+    var tagData;  //tag数据
+    var oVideoPreviewBoxTimeSapnAjax=0//预览进度时间
+    var totalTime=0 //单位为秒 
+    var times=null;//时间倒计时
+    var timeIndex=0;//时间初始值
+    var h=0;//小时
+    var m=0;//分钟
+    var s=0;//秒数    
+
+    //播放控制
+    var oVideoPreviewBoxId=nilo.getById('videoPreviewBoxId');//预览视频
+    var oVideoPreviewBoxBigPlay=nilo.getById("videoPreviewBoxBigPlay");//播放大按钮 //整个视频屏幕
+    var oVideoPreviewBoxSmallPlay=nilo.getById('videoPreviewBoxSmallPlay');//播放按钮
+    var oVideoPreviewBoxTime=nilo.getById('videoPreviewBoxTime');//时间
+    var oVideoPreviewBoxTimeB=oVideoPreviewBoxTime.getElementsByTagName('b')[0];//追随时间
+    var oVideoPreviewBoxTimeSapn=oVideoPreviewBoxTime.getElementsByTagName('span')[0]//总时间
+    var oVideoPreviewBoxVoice=nilo.getById('videoPreviewBoxVoice');//声音
+    var oVideoPreviewBoxPlan=nilo.getById("videoPreviewBoxPlan");//进度条总长度
+    var oVideoPreviewBoxPlanWire=nilo.getById('videoPreviewBoxPlanWire');//播放进度
+    var oVideoPreviewBoxPlanBall=nilo.getById('videoPreviewBoxPlanBall');//播放进度球
+    var oVideoPreviewBoxObjDivId=nilo.getById('videoPreviewBoxObjDivId');//tag标签 
+    var previewTime=null;
+    
+    //十进位
+    function addTens(tens) {
+        if(tens<10){
+            return "0"+tens;
+        }
+        else{
+            return tens;
+        }
+    }
+    //总时长
+    function totalTimes(time,obj) {
+
+        var h=Math.floor(time/60/60%24);
+        var m=Math.floor(time/60%60);
+        var s=Math.floor(time%60);
+        if(h==0){
+            obj.innerHTML=+addTens(m)+":"+addTens(s);
+        }
+        else{
+            obj.innerHTML=h+":"+addTens(m)+":"+addTens(s);
+        }
+    }
+    
+    //绑定按钮事件
+  //oVideoPreviewBoxBigPlay.onclick=oVideoPreviewBoxSmallPlay.onclick=function () {
+	//进度条下方的播放按钮
+    oVideoPreviewBoxSmallPlay.onclick=function () {
+        if (oVideoPreviewBoxId.paused) {
+            previewPlay()
+        }
+        else {
+            previewPause()
+        }
+    }
+    //视频点击时获取onclick事件
+    oVideoPreviewBoxBigPlay.onclick=function () {
+    	if (oVideoPreviewBoxId.paused) {
+            previewPlay()
+        }
+        else {
+            previewPause()
+            var e=event||window.event;  
+         //   console.log('click x='+e.offsetX+','+'click y='+e.offsetY)  
+
+            previewShowOverlay(e.offsetX,e.offsetY);
+        }
+    }
+    
+    //绑定按钮事件end
+
+    //开始加载视频数据
+    objectData();
+    
+    //获取数据
+    function objectData() {
+        $.get(locationHerf+'/object/queryObjects?videoId='+locationSearchSub,{ticket:nilo.getCookie('ticket')},function(data,status){
+
+            ajaxData=JSON.parse(data);
+            if(ajaxData.data!=null){  
+                if(ajaxData.responseCode==100000){
+                	videoFrameRate=ajaxData.data.rate;//帧率
+                	videoWidth=ajaxData.data.width;//分辨率宽度
+                    videoHeight=ajaxData.data.height;//分辨率宽度
+                    
+                    frameList=ajaxData.data.objects;//每帧
+                  //  console.log("frameList:"+frameList);
+                	 oVideoPreviewBoxTimeSapnAjax=parseInt(ajaxData.data.time)
+                     totalTimes(oVideoPreviewBoxTimeSapnAjax,oVideoPreviewBoxTimeSapn)//预览总时长  
+                }
+                else if(ajaxData.responseCode==0){
+                	alert(ajaxData.responseCode)
+                }
+            }
+            else{
+                alert("无法获取视频数据");
+            } 
+        });
+        
+        $.get(locationHerf+'/tag/queryPreview?videoId='+locationSearchSub,function(data,status){
+
+            tagData=JSON.parse(data);
+        });
+        
+//        $.post(locationHerf+'/tagStyleInfo/query',{ticket:nilo.getCookie('ticket')},function(data,status){
+//
+//            vuestleyObject=JSON.parse(data);
+//            console.log('styledata:' + vuestleyObject.data)  
+//        });
+    }
+ 
+    //播放
+    function previewPlay() {
+        oVideoPreviewBoxId.play();
+        oVideoPreviewBoxBigPlay.className='videoPreviewBoxPlay';
+        oVideoPreviewBoxSmallPlay.className='playSaasClass'; 
+        
+        var oVideoPreviewOverlayId=nilo.getById("videoPreviewOverlayId");
+        oVideoPreviewOverlayId.style.display="none";
+        var vardivIframe=document.getElementById("divIframe");
+        vardivIframe.src="";
+         
+        previewCountDown();
+    }
+    //暂停
+    function previewPause() { 
+        oVideoPreviewBoxId.pause();
+        oVideoPreviewBoxBigPlay.className='videoPreviewBoxPlay videoPreviewBoxPlayNone';
+        oVideoPreviewBoxSmallPlay.className='pauseSaasClass';
+        clearInterval(previewTime); 
+    }
+    
+    //播放完成
+    oVideoPreviewBoxId.onended=function () {
+        oVideoPreviewBoxBigPlay.className='videoPreviewBoxPlay videoPreviewBoxPlayNone';
+        oVideoPreviewBoxSmallPlay.className='pauseSaasClass';
+        clearInterval(previewTime); 
+        oVideoPreviewBoxPlanWire.style.width='100%';
+        oVideoPreviewBoxPlanBall.style.left='100%';
+    }
+    //声音
+    oVideoPreviewBoxVoice.onclick=function () {
+        if(oVideoPreviewBoxId.volume!=0.0){
+            oVideoPreviewBoxId.volume=0.0;
+            this.className="muteSaasClass";
+        }
+        else {
+            oVideoPreviewBoxId.volume=1.0;
+            this.className="voiceSaasClass";
+        }
+    } 
+
+    function previewCountDown() {
+        previewTime=setInterval(function () {
+        	//视频播放的当前秒数
+            var currSecond = oVideoPreviewBoxId.currentTime;
+            //倒计时
+            var h=Math.floor(currSecond/60/60%24);
+            var m=Math.floor(currSecond/60%60);
+            var s=Math.floor(currSecond%60);
+            if(h==0){
+                oVideoPreviewBoxTimeB.innerHTML=+addTens(m)+":"+addTens(s);
+            }
+            else{
+                oVideoPreviewBoxTimeB.innerHTML=h+":"+addTens(m)+":"+addTens(s);
+            }
+            //进度条
+            oVideoPreviewBoxPlanWire.style.width=parseInt(currSecond*(oVideoPreviewBoxPlan.clientWidth/oVideoPreviewBoxTimeSapnAjax))+"px";//计算速度V=S/t
+            oVideoPreviewBoxPlanBall.style.left=parseInt(currSecond*(oVideoPreviewBoxPlan.clientWidth/oVideoPreviewBoxTimeSapnAjax))+"px";//计算速度V=S/t
+ 
+            if($("#videoPreviewBoxObjDivId div").length>0){
+                $("#videoPreviewBoxObjDivId").empty();
+            } 
+            
+            //当前帧数
+            var frameNo = Math.floor(currSecond*videoFrameRate);
+            for(var i=0;i<frameList.length;i++){
+            	var objFF = frameList[i].fno;
+            //	console.log(frameList[i]);
+            	if(objFF == frameNo)
+        		{
+            		//console.log(Math.floor(currSecond)+"," + frameNo + ",true");
+            		//得到某一帧的object list
+            		var objs = frameList[i].objs;
+            		for(var j=0;j<objs.length;j++)
+        			{
+            			var obj = objs[j];
+            			var tagDiv=document.createElement("div");
+            			tagDiv.className="tagDivBorderNes "+"delete"+obj.oid;
+            			 var tagX=parseInt(obj.x *(__baseVideoWidth/videoWidth) + (obj.w*(__baseVideoWidth/videoWidth))/2);
+                         var tagY=parseInt(obj.y *(__baseVideoHeight/videoHeight)+ (obj.h*(__baseVideoHeight/videoHeight))/2);
+                         var tagW=parseInt((obj.w*(__baseVideoWidth/videoWidth))/2);
+                         var tagH=parseInt((obj.h*(__baseVideoHeight/videoHeight))/2); 
+                         
+                         //查询tag信息
+                         for(var tagIndex=0;tagIndex<tagData.data.tags.length;tagIndex++)
+                    	 {
+                        	 var tmpObjTagInfo = tagData.data.tags[tagIndex]; 
+                        	 if(tmpObjTagInfo.objectId == obj.oid) {
+                        		 
+                        		 //TODO 根据tag不同配置显示不同信息，目前只是显示了图片,wirewax也是只显示了图片
+                        		 
+                        		 var tagDivImg=document.createElement("a"); 
+                                 tagDivImg.className='tagDivBorderImg'; 
+                                 tagDivImg.style.width=tagW+"px";
+                                 tagDivImg.style.height=tagH+"px";
+                                 tagDivImg.href = "javascript:void(0)";
+//                                 tagDivImg.onclick=function () {
+//                                	 testClick();
+//                                	 oVideoPreviewBoxId.pause();
+//                                   alert('ddd');
+//                                 }
+                                 
+	                        	 var tagDivImg2=document.createElement("img");
+	                             tagDivImg2.src=tmpObjTagInfo.styleUrl;
+	                             var tagX=parseInt(obj.x *(__baseVideoWidth/videoWidth) + (obj.w*(__baseVideoWidth/videoWidth))/2);
+	                             var tagY=parseInt(obj.y *(__baseVideoHeight/videoHeight)+ (obj.h*(__baseVideoWidth/videoWidth))/2);
+	                             tagDivImg2.style.width=tmpObjTagInfo.imgWidth+"px";
+	                             tagDivImg2.style.height=tmpObjTagInfo.imgHeight+"px";
+	                             if(tagW==0)
+	                            	 tagW=tmpObjTagInfo.imgWidth;
+	                             if(tagH==0)
+	                            	 tagW=tmpObjTagInfo.imgHeight;
+	                             
+	                             tagDivImg.appendChild(tagDivImg2);
+	                             tagDiv.appendChild(tagDivImg);
+                        	 }
+                    	 }
+                         
+                         tagDiv.style.left=tagX+"px";
+                         tagDiv.style.top=tagY+"px";
+                         tagDiv.style.width=tagW+"px";
+                         tagDiv.style.height=tagH+"px"; 
+                         
+                         oVideoPreviewBoxObjDivId.appendChild(tagDiv);
+        			}
+        		}
+            }
+        },30)
+    }
+    
+    //在视频区域点击时，获取点击的坐标以及判断是否显示overlay
+    function previewShowOverlay(positionX,positionY)
+    {
+    	//视频播放的当前秒数
+        var currSecond = oVideoPreviewBoxId.currentTime;
+       //当前帧数
+        var frameNo = Math.floor(currSecond*videoFrameRate);
+        var frameList=ajaxData.data.objects;//每帧
+        
+        var selectedObjectId =0;
+        
+        for(var i=0;i<frameList.length;i++)
+        {
+        	var objFF = frameList[i].fno;
+        	if(objFF == frameNo)
+    		{
+        		//得到某一帧的object list
+        		var objs = frameList[i].objs;
+        		for(var j=0;j<objs.length;j++)
+    			{
+        			var obj = objs[j];
+        			//console.log('obj.x:' + obj.x + ",obj.y:" + obj.y + ",obj.w:" + obj.w+ ",obj.h:" + obj.h );
+        			var tagX=parseInt(obj.x *(__baseVideoWidth/videoWidth));
+                    var tagY=parseInt(obj.y *(__baseVideoHeight/videoHeight));
+                    var tagW=parseInt(obj.w*(__baseVideoWidth/videoWidth));
+                    var tagH=parseInt(obj.h*(__baseVideoHeight/videoHeight));
+                    
+                    //console.log('convert:' + tagX + "," + tagY + "," + tagW + "," + tagH);
+                    if(positionX>=tagX && positionX <= (tagX+tagW) && positionY>=tagY && positionY <= (tagY+tagH) )
+                    { 
+                    	selectedObjectId = obj.oid;
+                    	break;
+                    }
+    			}
+    		}
+        } //end of for(var i=0;i<frameList.length;i++)
+        
+        if(selectedObjectId<=0)
+        	return false;
+        
+        //根据object id找tag信息和overlay信息
+        for(var tagIndex=0;tagIndex<tagData.data.tags.length;tagIndex++)
+	   	 {
+        	console.log('selectedObjectId:'+selectedObjectId);
+	       	 var tmpObjTagInfo = tagData.data.tags[tagIndex]; 
+	       	 if(tmpObjTagInfo.objectId == selectedObjectId) { 
+	       		console.log('tag action:'+tmpObjTagInfo.tagPopStyle);
+	       		 //根据tag的不同动作显示不同的overlay
+	       		if(tmpObjTagInfo.tagPopStyle==1) //打开新窗口
+       			{
+	       			 window.open(tmpObjTagInfo.tagPopUrl);
+       			}
+	       		else if(tmpObjTagInfo.tagPopStyle==2) //显示overlay
+      			{
+	       			var oVideoPreviewOverlayId=nilo.getById("videoPreviewOverlayId");
+                    oVideoPreviewOverlayId.style.display="block";
+                    if(tmpObjTagInfo.overlayShowType==1)
+                	{
+                    	oVideoPreviewOverlayId.style.width=__baseVideoWidth+"px";
+	                    oVideoPreviewOverlayId.style.height=(__baseVideoHeight-10)+"px";
+	                    oVideoPreviewOverlayId.style.top="10px";
+	                    oVideoPreviewOverlayId.style.left="0px";
+                	}
+                    else
+                    {
+	                    if(tmpObjTagInfo.overlayPopPosition==1) //left
+	                    {
+		                    oVideoPreviewOverlayId.style.width=Math.floor(__baseVideoWidth/8)+"px";
+		                    oVideoPreviewOverlayId.style.height=__baseVideoHeight+"px";
+		                    oVideoPreviewOverlayId.style.top="0px";
+		                    oVideoPreviewOverlayId.style.left="0px";
+	                    }
+	                    else if(tmpObjTagInfo.overlayPopPosition==2) //right
+	                    {
+		                    oVideoPreviewOverlayId.style.width=Math.floor(__baseVideoWidth/8)+"px";
+		                    oVideoPreviewOverlayId.style.height=__baseVideoHeight+"px";
+		                    oVideoPreviewOverlayId.style.top="0px";
+		                    oVideoPreviewOverlayId.style.left=Math.floor(__baseVideoWidth*7/8)+"px";
+	                    }
+	                    else if(tmpObjTagInfo.overlayPopPosition==3) //top
+	                    {
+		                    oVideoPreviewOverlayId.style.width=__baseVideoWidth+"px";
+		                    oVideoPreviewOverlayId.style.height=Math.floor(__baseVideoHeight/5)+"px";
+		                    oVideoPreviewOverlayId.style.top="0px";
+		                    oVideoPreviewOverlayId.style.left="0px";
+	                    }
+	                    else if(tmpObjTagInfo.overlayPopPosition==4) //bottom
+	                    {
+		                    oVideoPreviewOverlayId.style.width=__baseVideoWidth+"px";
+		                    oVideoPreviewOverlayId.style.height=Math.floor(__baseVideoHeight/5)+"px";
+		                    oVideoPreviewOverlayId.style.top=Math.floor(__baseVideoHeight*4/5)+"px";
+		                    oVideoPreviewOverlayId.style.left="0px";
+	                    }
+                    }
+                    oVideoPreviewOverlayId.style.zIndex=1000;
+                    var overlayURL = tmpObjTagInfo.overlayUrl+"?ooid="+tmpObjTagInfo.tagId;
+                    var vardivIframe=document.getElementById("divIframe");
+                    vardivIframe.src=overlayURL;
+      			}
+	       		else //点击tag没有任何反应
+      			{
+	       			 break;
+      			}
+	       		
+	       		break;
+	       	 }
+	   	 }
+    }
+
+    
+    //拖拽圆球
+    function  previewDragVideoBall(id,idBg) {
+        var oDrag=nilo.getById(id);
+        var oDragBg=nilo.getById(idBg);
+        oDrag.onmousedown=function(ev){
+            var oEvent=ev||event;
+            var disX=oEvent.clientX-oDrag.offsetLeft;
+            if(oDrag.setCapture){
+                oDrag.onmousemove=fnMove
+                oDrag.onmouseup=fnUp
+                oDrag.setCapture()
+            }
+            else{
+                document.onmousemove=fnMove
+                document.onmouseup=fnUp
+            }
+            function fnMove(ev){
+                var oEvent=ev||event;
+                var dissX=oEvent.clientX-disX;
+
+                if(dissX<=0){
+                    oDrag.style.left=0+"px";
+                    previewPlanRelevance(dissX)
+                }
+                else if(dissX>=parseInt(oDragBg.offsetWidth-oDrag.offsetWidth)){
+                    oDrag.style.left=parseInt(oDragBg.offsetWidth-oDrag.offsetWidth)+"px";
+                    previewPlanRelevance(dissX)
+                }
+                else{
+                    oDrag.style.left=dissX+"px";
+                    previewPlanRelevance(dissX)
+                }
+
+            }
+            function fnUp(){
+                this.onmousemove=null;
+                this.onmouseup=null;
+                if(this.releaseCapture){
+                    oDrag.releaseCapture()
+                }
+            }
+            return false;
+        }
+    }
+    previewDragVideoBall('videoPreviewBoxPlanBall','videoPreviewBoxPlan');
+     //记录拖拽圆球位置
+    function previewPlanRelevance(relevance) {
+        oVideoPreviewBoxPlanWire.style.width=relevance+"px";
+        oVideoPreviewBoxPlanBall.style.left=relevance+"px";
+        var thisTime=parseInt(relevance/(oVideoPreviewBoxPlan.clientWidth/oVideoPreviewBoxTimeSapnAjax))
+        oVideoPreviewBoxId.currentTime=thisTime;
+        totalTimes(thisTime,oVideoPreviewBoxTimeB);
+    }
+      
+})()
+
+
