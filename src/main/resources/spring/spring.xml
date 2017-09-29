@@ -16,7 +16,7 @@
 				</list>
 			</property>
 	</bean> 
-    <!-- <import resource="classpath*:spring/spring-beans.xml"/> -->
+    <import resource="classpath*:spring/spring-beans.xml"/>
 	<!-- <import resource="classpath*:spring/spring-message.xml"/> -->
     <import resource="classpath*:spring/spring-scan.xml"/>
     <import resource="classpath*:spring/spring-datasource.xml"/>
