@@ -36,11 +36,9 @@
     	<div class="leftbar">
         	<nav class="nav-list">
             	<ul>
-            	 <shiro:hasPermission  name="admin:user">
 	                	<li>
-	                    	<a href="${ctx}/user/text" id="statistics"><i class="ico-item"></i>统计分析</a>
+	                    	<a href="#" id="statistics"><i class="ico-item"></i>统计分析</a>
 	                    </li>
-	              </shiro:hasPermission >
 	                <shiro:hasPermission  name="admin:user">
 	                    <li>
 	                    	<a href="javascript:void(0);" id="userManager"><i class="ico-member"></i>用户管理</a>
