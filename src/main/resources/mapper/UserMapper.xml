@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nilo.dao.UserDao">
+
+    <select id="queryByName" resultType="com.nilo.model.User">
+
+        select id, uid, login_account as loginAccount, name, password, phone, org_id as orgId from saas_user where login_account=#{loginAccount}
+
+    </select>
+
+    <insert id="insert"  parameterType="com.nilo.model.User" >
+     INSERT INTO saas_user (
+	   <if test="uid!=null and uid!=''">
+	         uid,
+	     </if>
+	     <if test="loginAccount!=null and loginAccount!=''">
+	         login_account,
+	     </if>
+	     <if test="name!=null and name!=''">
+	         NAME,
+	     </if>
+	     <if test="password!=null and password!=''">
+	         PASSWORD,
+	     </if>
+	     <if test="phone!=null and phone!=''">
+	         phone,
+	     </if>
+	     <if test="email!=null and email!=''">
+	         email,
+	     </if>
+	     <if test="lastLoginDate!=null">
+	         last_login_date,
+	     </if>
+	     <if test="lastLoginIp!=null and lastLoginIp!=''">
+	         last_login_ip,
+	     </if>
+	     <if test="lastLoginArea!=null and lastLoginArea!=''">
+	         last_login_area,
+	     </if>
+	     <if test="memo!=null and memo!=''">
+	         memo,
+	     </if>
+	     <if test="source!=null and source!=''">
+	         source,
+	     </if>
+	     <if test="orgId!=null and orgId!=''">
+	         org_id,
+	     </if>
+	     <if test="status!=null and status!=''">
+	         STATUS,
+	     </if>
+	         register_type,
+	         create_date,
+	         update_date
+	)
+	VALUES
+	(
+		 <if test="uid!=null and uid!=''">
+	         #{uid},
+	     </if>
+	     <if test="loginAccount!=null and loginAccount!=''">
+	         #{loginAccount},
+	     </if>
+	     <if test="name!=null and name!=''">
+	         #{name},
+	     </if>
+	     <if test="password!=null and password!=''">
+	         #{password},
+	     </if>
+	     <if test="phone!=null and phone!=''">
+	         #{phone},
+	     </if>
+	     <if test="email!=null and email!=''">
+	         #{email},
+	     </if>
+	     <if test="lastLoginDate!=null">
+	         #{lastLoginDate},
+	     </if>
+	     <if test="lastLoginIp!=null and lastLoginIp!=''">
+	         #{lastLoginIp},
+	     </if>
+	     <if test="lastLoginArea!=null and lastLoginArea!=''">
+	         #{lastLoginArea},
+	     </if>
+	     <if test="memo!=null and memo!=''">
+	         #{memo},
+	     </if>
+	     <if test="source!=null and source!=''">
+	         #{source},
+	     </if>
+	     <if test="orgId!=null and orgId!=''">
+	         #{orgId},
+	     </if>
+	     <if test="status!=null and status!=''">
+	         #{status},
+	     </if>
+	        #{registerType},
+	        now(),
+	        now()
+	)
+    </insert>
+
+   <update id="updateUserPassword" parameterType="java.util.Map" >
+      UPDATE saas_user
+	  SET password =#{newPassword},
+	  update_date=now(),
+	  update_by=#{updateBy}
+	  WHERE
+		 uid =#{uid}
+   </update>
+
+</mapper>

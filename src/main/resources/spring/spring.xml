@@ -5,8 +5,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-   <!--  <context:property-placeholder location="classpath:app.properties" ignore-unresolvable="true"/> -->
+       
+   <!-- shiro缓存 -->
+   <bean id="ehcacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:spring/ehcache-shiro.xml" />
+   </bean>
    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="locations">
 				<list>
@@ -16,6 +20,19 @@
 				</list>
 			</property>
 	</bean> 
+	<bean  
+    class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+    <property name="exceptionMappings">  
+        <props>  
+            <prop key="org.apache.shiro.authz.UnauthorizedException">  
+                /unauthorized  
+            </prop>  
+            <prop key="org.apache.shiro.authz.UnauthenticatedException">  
+                /unauthenticated  
+            </prop>  
+        </props>  
+    </property>  
+</bean>  
     <import resource="classpath*:spring/spring-beans.xml"/>
 	<!-- <import resource="classpath*:spring/spring-message.xml"/> -->
     <import resource="classpath*:spring/spring-scan.xml"/>
