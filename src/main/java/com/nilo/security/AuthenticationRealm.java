@@ -43,15 +43,15 @@ public class AuthenticationRealm extends AuthorizingRealm {
 			try {
 				User user=userDao.queryByName(username);
 				if (user == null) {
-					throw new Exception("NOACCOUNT");
+					throw new Exception("账号不存在");
 				}
 				if(!user.getPassword().equals(password)){
-					throw new Exception("ERRORPSD");
+					throw new Exception("用户名/密码错误");
 				}
 				return new SimpleAuthenticationInfo(new Principal(user.getUid(),username, user.getRole_id()), password, getName());
 			} catch (Exception e) {
 				l=e.getMessage();
-				if(!e.getMessage().equals("ERRORPSD")&&!e.getMessage().equals("NOACCOUNT"))
+				if(!e.getMessage().equals("用户名/密码错误")&&!e.getMessage().equals("账号不存在"))
 				e.printStackTrace();
 			}
 		}
@@ -71,7 +71,9 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		String username = principal.getLoginAccount(); 
 		if (username != null) {
 			List<String> authorities = new ArrayList<String>();//查询权限
-			authorities.add("admin:user");
+			if(username.equals("jiangfeng")){
+				authorities.add("admin:user");
+			}
 			if (authorities != null) {
 				SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 				authorizationInfo.addStringPermissions(authorities);

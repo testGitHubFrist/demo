@@ -1,5 +1,7 @@
 package com.nilo.action;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
+
 import com.nilo.security.AuthenticationToken;
 import com.nilo.utils.DESUtils;
 
@@ -29,8 +32,14 @@ public class UserAction {
 	@Value("${ds}")
 	private String DESSalt;
 	
-	
-	@RequestMapping(value="/user/login")
+	/**
+	 * 登录
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/login")
 	public void login(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		logger.info("----------------begin------------------");
 		String username = request.getParameter("user.loginAccount");
@@ -42,10 +51,10 @@ public class UserAction {
 		
 		if (subject != null) {
 			subject.login(token);
-			response.sendRedirect(request.getContextPath()+"/test");
-			return;
+			response.sendRedirect("test");
+		}else{
+			response.sendRedirect("unauthorized");
 		}
-		response.sendRedirect(request.getContextPath()+"/unauthorized");
 		return;
 	}
 	
@@ -57,6 +66,27 @@ public class UserAction {
 	 */
 	@RequestMapping("/unauthorized")
 	public String unauthorized (Model model, HttpServletRequest request){
-		return "/unauthorized";
+		return "error/unauthorized";
 	}
+	
+
+	/**
+	 * 退出
+	 */    
+	@RequestMapping("/user/logout")
+	public void logout(Model model, HttpServletRequest request, HttpServletResponse response){		
+		Subject currentUser = SecurityUtils.getSubject();
+		currentUser.logout();
+		try {
+			response.sendRedirect("login");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
+	
+	@RequestMapping("/user/text")
+	public String text (Model model, HttpServletRequest request){
+		return "asyn-echarts";
+	}
+	
 }

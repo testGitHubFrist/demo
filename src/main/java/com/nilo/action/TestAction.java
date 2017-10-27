@@ -25,7 +25,7 @@ import com.nilo.security.Principal;
  * <p>这是个测试类
  */
 @Controller
-public class TestAction {
+public class TestAction extends BaseAction {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestAction.class);
 	@Autowired VideoTagMapper videoTagMapper;
@@ -37,17 +37,13 @@ public class TestAction {
 		Subject currentUser = SecurityUtils.getSubject();
 		Principal principal=(Principal) currentUser.getPrincipal();
 		principal.getLoginAccount();
-//		redisTemplateImp.set("a", "张善闯");
 		String name=redisTemplateImp.get("a");
-		
 		if(name==null){
 			redisTemplateImp.set("a", "1");
 			redisTemplateImp.expire("a", 10);
 			
 		}
-		
 		model.addAttribute("a", "adwdsa");
-		/*List list=videoTagMapper.queryTagListByVideoId("a");*/
 		List<String> list=new ArrayList<String>();
 		list.add("1");
 		list.add("2");
@@ -55,36 +51,7 @@ public class TestAction {
 		list.add("4");
 		list.add("5");
 		model.addAttribute("list",list);
-		logger.info("----------------end------------------");
-		logger.info("changmaidnsaoifh");
-		logger.info("changmaidnsaoifh1");
-		logger.info("qwer");
-		logger.info("----------------e1------------------");
-		logger.info("----------------zsc------------------");
-		logger.info("----------------e2------------------");
-//		redisTemplateImp.delete("a");
+		redisTemplateImp.delete("a");
 		return "test-jsp";
-	}
-	
-	@RequestMapping("show")
-	public String show(){
-		return "asyn-echarts";
-		
-	}
-	
-	@RequestMapping("data")
-	public @ResponseBody  Map<String ,Object> data(){
-		Map<String ,Object> result=new HashMap<String, Object>();
-		List<Object> names=new ArrayList<Object>();
-		List<Object> nums=new ArrayList<Object>();
-		names.add("1");
-		names.add("12");
-		names.add("13");
-		nums.add(21);
-		nums.add(22);
-		nums.add(23);
-		result.put("names", names);
-		result.put("nums", nums);
-		return result;
 	}
 }

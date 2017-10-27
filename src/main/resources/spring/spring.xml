@@ -11,6 +11,7 @@
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:spring/ehcache-shiro.xml" />
    </bean>
+   <!-- 读取配置文件 -->
    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="locations">
 				<list>
@@ -20,19 +21,9 @@
 				</list>
 			</property>
 	</bean> 
-	<bean  
-    class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
-    <property name="exceptionMappings">  
-        <props>  
-            <prop key="org.apache.shiro.authz.UnauthorizedException">  
-                /unauthorized  
-            </prop>  
-            <prop key="org.apache.shiro.authz.UnauthenticatedException">  
-                /unauthenticated  
-            </prop>  
-        </props>  
-    </property>  
-</bean>  
+   <!-- spring MVC 统一异常处理 -->
+   <bean id="exceptionResolver" class="com.nilo.exception.MyExceptionResolver"></bean>
+
     <import resource="classpath*:spring/spring-beans.xml"/>
 	<!-- <import resource="classpath*:spring/spring-message.xml"/> -->
     <import resource="classpath*:spring/spring-scan.xml"/>

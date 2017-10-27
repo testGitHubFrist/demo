@@ -6,26 +6,63 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<link type="text/css" rel="stylesheet" href="${ctx}/static/css/globel.css">
+<link type="text/css" rel="stylesheet" href="${ctx}/static/css/main.css">
 <!-- 引入 ECharts 文件 -->
-<script src="${pageContext.request.contextPath}/static/js/echarts.common.min.js"></script>
-<title>Insert title here</title>
+<script src="${ctx}/static/js/echarts.common.min.js"></script>
+<style type="text/css">
+.echarts_css{position: absolute;left: 30%; top: 50%;width:600px;height:400px;margin-left:-100px;margin-top:-50px;}
+</style>
+<title>Echarts演示</title>
 </head>
 <body>
+<!--[[header start-->
+	<header class="header">
+    	<div class="warp_auto flex">
+        	<div class="logo">
+            	<img src="${ctx}/static/images/logo.png" />
+            </div>
+            <div class="into">
+                <a id="logout"  href="${ctx}/user/logout">
+                	<i class="ico-close"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+<!--header end]]-->
+<div class="main">
+   <!--[[left start-->
+    	<div class="leftbar">
+        	<nav class="nav-list">
+            	<ul>
+            	 <shiro:hasPermission  name="admin:user">
+	                	<li>
+	                    	<a href="${ctx}/user/text" id="statistics"><i class="ico-item"></i>统计分析</a>
+	                    </li>
+	              </shiro:hasPermission >
+	                <shiro:hasPermission  name="admin:user">
+	                    <li>
+	                    	<a href="javascript:void(0);" id="userManager"><i class="ico-member"></i>用户管理</a>
+	                    </li>
+	               </shiro:hasPermission >
+	               <shiro:hasPermission  name="admin:user">
+	                    <li>
+	                    	<a href="javascript:void(0);" id="roleManager"><i class="ico-add"></i>权限管理</a>
+	                    </li>
+	              </shiro:hasPermission >
+                </ul>
+            </nav>
+        </div>
+    <!--left end]]-->
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="main" class="echarts_css"></div>
     <div>
-     
-    <shiro:hasPermission  name="admin:user">
-     <div id="main1" style="width: 400px;height:400px;"></div>
-     </shiro:hasPermission >
-     </div>
-   <!--   -->
-	
-    
+    </div>
+</div>
     <script type="text/javascript">
     	// 基于准备好的dom，初始化echarts实例
           var myChart = echarts.init(document.getElementById('main'));
-          var myChart1 = echarts.init(document.getElementById('main1'));
           var data =[];
           for (var i = 0; i < 6; i++) {
         	  data[i]= Math.floor(Math.random()*100)+1;
@@ -52,13 +89,12 @@
           };
           // 使用刚指定的配置项和数据显示图表。
           myChart.setOption(option); 
-          myChart1.setOption(option); 
           function myrefresh()
           {
         	     
                  window.location.reload();
           }
-          setInterval("myrefresh()", 5000); 
+           setInterval("myrefresh()", 5000);
         
     </script>
 </body>
