@@ -22,7 +22,7 @@
 		<property name="securityManager" ref="securityManager" />
 
 		<!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
-		<!-- <property name="loginUrl" value="index.jsp" /> -->
+		<property name="loginUrl" value="/index" />
 
 		<!-- 登录成功后要跳转的连接 -->
 		<property name="successUrl" value="/test" /><!-- 测试 -->

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+
 /**
  * 
  * @author 张善闯
@@ -20,6 +21,7 @@ public class MyExceptionResolver implements HandlerExceptionResolver{
 
 	private static final Logger logger = LoggerFactory.getLogger(MyExceptionResolver.class);
 
+	@Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
         Map<String, Object> model = new ConcurrentHashMap<String, Object>();
@@ -29,7 +31,12 @@ public class MyExceptionResolver implements HandlerExceptionResolver{
         logger.info("==========异常类型："+ex.getClass().getSimpleName());
         logger.info("==========异常描述："+ex.getMessage());
         logger.info("==========异常原因："+ex.getCause());
-        return new ModelAndView("error/error",model);
+        if("UnknownAccountException".equals(ex.getClass().getSimpleName())){
+        	 model.put("error", ex.getMessage());
+        	 return new ModelAndView("/login",model);
+        }else{
+        	 return new ModelAndView("error/error",model);
+        }
     }
 
 }

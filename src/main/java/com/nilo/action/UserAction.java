@@ -33,6 +33,17 @@ public class UserAction {
 	private String DESSalt;
 	
 	/**
+	 * 初始化
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping({"/index","/"})
+	public String index (Model model, HttpServletRequest request){
+		return "login";
+	}
+	
+	/**
 	 * 登录
 	 * @param model
 	 * @param request
