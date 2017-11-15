@@ -17,4 +17,8 @@
 			WHERE tag.video_id=#{videoId}
 			ORDER BY tag.tag_id 
 	</select>
+	
+	<select id="queryDataBaseTablesByName" parameterType="java.lang.String" resultType="com.nilo.model.sysTables" >
+	    select TABLE_NAME AS tableName ,TABLE_COMMENT AS tableComment from information_schema.TABLES where TABLE_SCHEMA=#{database};
+	</select>
 </mapper>

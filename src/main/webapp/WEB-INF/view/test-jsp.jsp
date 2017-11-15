@@ -37,7 +37,7 @@
         	<nav class="nav-list">
             	<ul>
 	                	<li>
-	                    	<a href="${ctx}/user/text" id="statistics"><i class="ico-item"></i>统计分析(admin权限可以访问：备注权限测试)</a>
+	                    	<a href="${ctx}/getDataBase" id="statistics"><i class="ico-item"></i>统计分析(admin权限可以访问：备注权限测试)</a>
 	                    </li>
 	                <shiro:hasPermission  name="admin:user">
 	                    <li>

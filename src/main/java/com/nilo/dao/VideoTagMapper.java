@@ -2,6 +2,8 @@ package com.nilo.dao;
 
 import java.util.List;
 
+import com.nilo.model.sysTables;
+
 
 /**
  * 
@@ -17,6 +19,13 @@ public interface VideoTagMapper {
 	 * @return
 	 */
 	List queryTagListByVideoId(String videoId) throws Exception;
+
+	/**
+	 * 查询所有数据库表
+	 * @param database
+	 * @return
+	 */
+	List<sysTables> queryDataBaseTablesByName(String database);
 
 
 }
