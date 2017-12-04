@@ -16,8 +16,8 @@
 			<property name="locations">
 				<list>
 					<!-- <value>classpath:resources\memcached.properties</value> -->
-					<!-- <value>classpath:config\${runmodel}\app.properties</value> -->
-					<value>classpath:config\dev\app.properties</value>
+					<value>classpath:config\${runmodel}\app.properties</value> 
+					<!-- <value>classpath:config\dev\app.properties</value> -->
 				</list>
 			</property>
 	</bean> 

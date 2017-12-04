@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 
 /**
- * arraylist原理深究;底层是数组；新增删除比较慢，因为需要重新数据定位
+ * arraylist原理深究;底层是数组；新增删除比较慢，因为需要重新数据定位；数组是连续的内存
  * @author 张善闯
  *
  * @param <AnyType>

@@ -3,7 +3,7 @@ package com.nilo.source;
 import java.util.Iterator;
 
 /**
- * LinkedList原理深究
+ * LinkedList原理深究；实现原理是双向链表，链表内存是不连续的
  * @author 张善闯
  *
  */
