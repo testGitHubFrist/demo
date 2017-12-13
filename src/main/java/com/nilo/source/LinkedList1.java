@@ -7,14 +7,14 @@ import java.util.Iterator;
  * @author 张善闯
  *
  */
-public class LinkedList<AnyType> implements Iterable<AnyType> {
+public class LinkedList1<AnyType> implements Iterable<AnyType> {
 
 	private int theSize;
 	private int modCount=0;
 	private Node<AnyType> benginMarker;
 	private Node<AnyType> endMarker;
 	
-	public LinkedList(){
+	public LinkedList1(){
 		clear();
 	}
 	
