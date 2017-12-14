@@ -2,6 +2,7 @@ package com.nilo.thread;
 
 public class RunThread {
 
+	public static ThreadLocal<Object> threadLocal=new ThreadLocal<Object>();
 	public static void main(String[] args) throws Exception {
 		
 		//1、执行随机性演示
@@ -164,17 +165,56 @@ public class RunThread {
 //		Thread2.start();
 		
 		//*********生产者/消费者演示 操作值******************************//
-		String lock="";
-		Productor productor=new Productor(lock);
-		Consumer consumer=new Consumer(lock);
-		ThreadProductor p=new ThreadProductor(productor);
-		p.start();
-		ThreadConsumer c=new ThreadConsumer(consumer);
-		c.start();
+//		String lock="";
+//		Productor productor=new Productor(lock);
+//		Consumer consumer=new Consumer(lock);
+//		ThreadProductor p=new ThreadProductor(productor);
+////		p.setDaemon(true);
+//		p.start();
+//		ThreadConsumer c=new ThreadConsumer(consumer);
+////		c.setDaemon(true);
+//		c.start();
+////		Thread.sleep(5000);
+////		System.out.println("主线程停止");
 		
+		//*********3、2方法join的使用******************************//
+//		MyThread myThread=new MyThread();
+//		myThread.start();
+//		myThread.join();//等待子线程执行完毕后主线程销毁
+//		System.out.println("主线程执行完毕");
 		
+		//*********3、3类ThreadLocal的使用;主要是解决静态变量共享的问题******************************//	
+		//*********3、3、1 方法get()与null******************************//
+//		if(threadLocal.get()==null){
+//			System.out.println("从未放值！！！");
+//			threadLocal.set("放置值");
+//		}
+//		System.out.println(threadLocal.get());
 		
+		//*********3、3、2验证线程变量的隔离性******************************//
+//		ThreadLocalA A=new ThreadLocalA();
+//		A.start();
+//		ThreadLocalB B=new ThreadLocalB();
+//		B.start();
 		
+		//*********4、1、1使用ReentrantLock实现同步：测试1******************************//
+//		ReentrantLockTest test=new ReentrantLockTest();
+//		MyThread t1=new  MyThread(test);
+//		MyThread t2=new  MyThread(test);
+//		MyThread t3=new  MyThread(test);
+//		MyThread t4=new  MyThread(test);
+//		MyThread t5=new  MyThread(test);
+//		t1.start();
+//		t2.start();
+//		t3.start();
+//		t4.start();
+//		t5.start();
 		
+		//*********4、1、4 正确使用Condition实现等待/通知******************************//
+		ReentrantLockAndCondition reentrant=new ReentrantLockAndCondition();
+		MyThread t1=new  MyThread(reentrant);
+		t1.start();
+		Thread.sleep(3000);
+		reentrant.signal();
 	}
 }

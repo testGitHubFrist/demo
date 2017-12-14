@@ -480,6 +480,87 @@ public class MyThread extends Thread{
 	
 	//*********3、2方法join的使用******************************//
 	/**
-	 * 在很多情况下，主线程创建并启动子线程，如果子线程中要进行大量的耗时计算，主线程往往将早于子线程结束之前结束
+	 *   在很多情况下，主线程创建并启动子线程，如果子线程中要进行大量的耗时计算，主线程往往将早于子线程结束之前结束。这时，如果主线程想等待子线程执行完成后再结束，比如子线程处理一个数据，
+	 * 主线程要取得这个数据表值就要用的join方法了，join的作用是等待线程对象销毁
+	 *   join与synchronized的区别：join在内部使用wait()方法进行等待，而synchronized使用的是对象监视器的原理作为同步。
 	 */
+	/*
+	@Override
+	public void run() {
+		try {
+			int secondValue=(int) (Math.random()*10000);
+			System.out.println("子线程需要执行的总时间："+secondValue);
+			Thread.sleep(secondValue);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	//*********3、2、3方法join(long)的使用******************************//
+	//*********3、2、4方法join()与sleep()区别******************************//
+	/**
+	 * <p>方法join的功能在内部是使用wait()方法实现的，所以join方法具有释放锁的特点。
+	 */
+	
+	//*********3、3类ThreadLocal的使用;主要是解决静态变量共享的问题******************************//
+	/**
+	 * 变量值的共享可以使用public static变量的形式，所有的线程都使用同一个public static变量，如果想实现每个线程都有自己的共享变量，则需要是ThreadLocal类。
+	 * 类ThreadLocal主要解决的就是每个线程绑定自己的值，可以将ThreadLocal类比喻成全局存放数据的盒子，盒子中可以存储每个线程的私有数据。
+	 */
+	//*********3、3、1 方法get()与null******************************//
+	
+	
+	//*********4Lock的使用******************************//
+	/**
+	 * <p>ReentrantLock类的使用
+	 * <p>ReentranReadWriteLock类的使用
+	 */
+	//*********4、1、1使用ReentrantLock实现同步：测试1******************************//
+	/*
+	public ReentrantLockTest test;
+	public MyThread(ReentrantLockTest test){
+		this.test=test;
+	}
+	@Override
+	public void run() {
+		try {
+			test.testMethod();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	*/
+	//*********4、1、3使用Condition实现等待/通知：错误用法与解决******************************//
+	
+	/**
+	 *   关键字synchronized与wait和notify/notifyAll方法相结合实现等待通知模型，类ReentrantLock也可以实现同样的贡呢，单需要借助Condition对象。
+	 *condition类时在JDK5中出现的技术，使用它有更好的灵活性，比如可以实现多路通知功能，也就是在一个Lock对象里面可以创建多个Condition（即对象监视器）实例，
+	 *线程对象可以注册在指定的Condition中，从而可以有选择地进行线程通知，在调度线程上更加灵活。
+	 *   在使用notify/notifyAll方法进行通知时，被通知的线程却是由jvm随机选择的。但使用ReentrantLock结合Condition类是可以实现前面的介绍的选择性通知
+	 *这个功能是非常重要的，而且在Condition类中默认提供的。
+	 *   而synchronized就相当于整个Lock对象只有一个单一的Condition对象，所有线程都注册在它一个对象身上。线程开始notifyAll时，通知所有线程WAITING线程，
+	 * 没有选择权，会出现相当大的效率问题。备注：Condition.await调用之前必须先lock
+	 */
+	
+	//*********4、1、4 正确使用Condition实现等待/通知******************************//
+	/**
+	 * <p>Object类中的wait()方法相当于Condition类中的await()方法
+	 * <p>Object类中的wait(long)方法相当于Condition类中的await(long)方法
+	 * <p>Objetc类中的notify()方法相当于Condition类中的signal()方法
+	 * <p>Objetc类中的notifyAll()方法相当于Condition类中的signalAll()方法
+	 */
+	private ReentrantLockAndCondition reentrant;
+	public MyThread(ReentrantLockAndCondition reentrant){
+		this.reentrant=reentrant;
+	} 
+	@Override
+	public void run() {
+		try {
+			reentrant.await();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
