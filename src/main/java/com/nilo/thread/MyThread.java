@@ -563,4 +563,9 @@ public class MyThread extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	//*********4、1、6 使用多个Condition实现等待/通知******************************//
+	/**
+	 * 通过实验可以得知，使用ReentrantLock对象可以唤醒指定的线程，这是控制部分线程行为的方便方式。
+	 */
 }

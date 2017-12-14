@@ -211,10 +211,22 @@ public class RunThread {
 //		t5.start();
 		
 		//*********4、1、4 正确使用Condition实现等待/通知******************************//
-		ReentrantLockAndCondition reentrant=new ReentrantLockAndCondition();
-		MyThread t1=new  MyThread(reentrant);
-		t1.start();
-		Thread.sleep(3000);
-		reentrant.signal();
+//		ReentrantLockAndCondition reentrant=new ReentrantLockAndCondition();
+//		MyThread t1=new  MyThread(reentrant);
+//		t1.start();
+//		Thread.sleep(3000);
+//		reentrant.signal();
+		
+		//*********4、1、6 使用多个Condition实现等待/通知******************************//
+//		ReentrantLockMultiCondition reentrantLockMultiCondition=new ReentrantLockMultiCondition();
+//		ReentrantLockMultiConditionA A=new ReentrantLockMultiConditionA(reentrantLockMultiCondition);
+//		ReentrantLockMultiConditionB B=new ReentrantLockMultiConditionB(reentrantLockMultiCondition);
+//		A.start();
+//		Thread.sleep(1000);
+//		B.start();
+//		Thread.sleep(1000);
+//		reentrantLockMultiCondition.signalAll_A();
+//		Thread.sleep(1000);
+//		reentrantLockMultiCondition.signalAll_B();
 	}
 }
