@@ -155,5 +155,26 @@ public class RunThread {
 //		Sub sub=new Sub();
 //		MyThread myThread=new MyThread(sub);
 //		myThread.start();
+		
+		//*********2.2.4一半同步，一半异步******************************//
+//		Task task=new Task();
+//		Thread1 Thread1=new Thread1(task);
+//		Thread1.start();
+//		Thread2 Thread2=new Thread2(task);
+//		Thread2.start();
+		
+		//*********生产者/消费者演示 操作值******************************//
+		String lock="";
+		Productor productor=new Productor(lock);
+		Consumer consumer=new Consumer(lock);
+		ThreadProductor p=new ThreadProductor(productor);
+		p.start();
+		ThreadConsumer c=new ThreadConsumer(consumer);
+		c.start();
+		
+		
+		
+		
+		
 	}
 }
