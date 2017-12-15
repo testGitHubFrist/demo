@@ -228,5 +228,44 @@ public class RunThread {
 //		reentrantLockMultiCondition.signalAll_A();
 //		Thread.sleep(1000);
 //		reentrantLockMultiCondition.signalAll_B();
+		
+		//*********4、1、10 getHoldCount()、getQueueLength()、getWaitQueueLength()的使用	HR******************************//
+		/**
+		 * <p>方法 getHoldCount()的作用是查询当前线程保持此锁的个数，也就是调用Lock的次数
+		 */
+//		HoldCount getHoldCount=new HoldCount();
+//		getHoldCount.Lock1();
+		
+		//*********4、1、13 方法lockInterruptibly()、tryLock()和tryLock(long timeout、TimeUnit unit)******************************//
+//		final TryLockTest test=new TryLockTest();
+//		
+//		Runnable run=new Runnable(){
+//			@Override
+//			public void run() {
+//				test.waitMethod();
+//			}
+//			
+//		};
+//		
+//		Thread A=new Thread(run);
+//		A.setName("A");
+//		A.start();
+//		
+//		Thread B=new Thread(run);
+//		B.setName("B");
+//		B.start();
+		
+		//*********4、2 、1 读读共享******************************//
+		ReentrantReadWriteLockTestRead reentrantReadWriteLockTestRead=new ReentrantReadWriteLockTestRead();
+		
+		ReentrantReadWriteLockTestReadA A=new ReentrantReadWriteLockTestReadA(reentrantReadWriteLockTestRead);
+		ReentrantReadWriteLockTestReadB B=new ReentrantReadWriteLockTestReadB(reentrantReadWriteLockTestRead);
+		A.setName("A");
+		A.start();
+		B.setName("B");
+		B.start();
+		/**
+		 * 几乎同时执行，所以实例变量是共享的，或者是线程安全的
+		 */
 	}
 }

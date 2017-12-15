@@ -568,4 +568,55 @@ public class MyThread extends Thread{
 	/**
 	 * 通过实验可以得知，使用ReentrantLock对象可以唤醒指定的线程，这是控制部分线程行为的方便方式。
 	 */
+	
+	
+	//*********4、1、9 公平锁和非公平锁******************************//
+	/**
+	 *  公平锁和非公平锁:锁Lock分为：公平锁和非公平锁，公平锁表示线程获取锁的顺序是按照线程加锁的顺序来分配的，即先来先得的FIFO先进先出顺序，而非公平锁就是一种获取锁的
+	 *  抢占制，是随机获得锁的，和公平锁不一样的就是先出来的不一定先得到锁
+	 */
+	
+	//*********4、1、10 getHoldCount()、getQueueLength()、getWaitQueueLength()的使用	HR******************************//
+	/**
+	 * <p>方法 getHoldCount()的作用是查询当前线程保持此锁的个数，也就是调用Lock的次数
+	 * <p>方法getQueueLength()的作用是返回正在等待获取此锁定的线程估计数；可以是sleep的等待线程
+	 * <p>方法getWaitQueueLength(Condition)的作用是返回等待与此锁定相关的给定条件Condition的线程估计数
+	 */
+	
+	//*********4、1、11 方法hasQueueThread(),hasQueueThreads(),hasWaiters()******************************//
+	/**
+	 * <p>方法boolean hsaQueueThread(Thread thread)的作用是查询指定线程是否正在等待获取此锁
+	 * <p>方法boolean hsaQueueThreads()的作用是查询是否有线程等待获取此锁定
+	 * <p>方法boolean hasWaiters(Condition condition)的作用是查询是否有线程正在等待与此锁定有关的Condition条件
+	 */
+	
+	//*********4、1、12 方法isFair()、isHeldByCurrentThread()和isLocked()******************************//
+	
+	/**
+	 * <p>isFair()的作用是判断是不是公平锁，在默认的情况下，ReentrantLock类使用的是非公平锁。
+	 * <p>isHeldByCurrentThread()的作用是查询当前线程是否保持此锁定。
+	 * <p>isLocked()的作用是查询此锁定是否由任意线程保持。
+	 */
+	
+	//*********4、1、13 方法lockInterruptibly()、tryLock()和tryLock(long timeout、TimeUnit unit)******************************//
+	/**
+	 * <p>方法lockInterruptibly()的作用是：如果当前线程未被中断，则获取锁定，如果已经被中断则出现异常。
+	 * <p>方法Boolean tryLock()的作用是，仅在调用时锁定未被另一个线程保持的情况下，才获取该锁定。
+	 * <p>方法tryLock(long timeout,TimeUnit unit)的作用是，如果锁定在给定时间内没有被另一个线程保持，且当前线程未被中断，则获取该锁定。
+	 */
+	
+	//*********4、1、14 方法awaitUniterruptibly******************************//
+	
+	//*********4、2 使用ReentrantReadWriteLock******************************//
+	/**
+	 * 类ReentrantLock具有完全互斥排他的效果，即同一时间只有一个线程在执行ReentrantLock.lock方法后面的任务。这样虽然保证了实例变量的线程安全性，但效率
+	 * 却是非常低下的，所以在jdk中提供了一种读写锁ReenteantReadWriteLock类，使用它可以加快运行效率，在某些不需要操作实例变量的方法中，完全可以使用读写锁
+	 * 来提升代码运行速度。读写锁表示也有两个锁，一个是读操作相关的锁，也称为共享锁；另一个是写操作相关的锁，也叫排他锁。也就是多个读锁之间不互斥，读锁与写锁互斥，写锁与写锁互斥
+	 * 。
+	 * 
+	 * 
+	 * 主要应用是缓存 cache
+	 */
+	
+	//*********4、2 、1 读读共享******************************//
 }
