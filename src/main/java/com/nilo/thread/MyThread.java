@@ -551,19 +551,19 @@ public class MyThread extends Thread{
 	 * <p>Objetc类中的notify()方法相当于Condition类中的signal()方法
 	 * <p>Objetc类中的notifyAll()方法相当于Condition类中的signalAll()方法
 	 */
-	private ReentrantLockAndCondition reentrant;
-	public MyThread(ReentrantLockAndCondition reentrant){
-		this.reentrant=reentrant;
-	} 
-	@Override
-	public void run() {
-		try {
-			reentrant.await();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+//	private ReentrantLockAndCondition reentrant;
+//	public MyThread(ReentrantLockAndCondition reentrant){
+//		this.reentrant=reentrant;
+//	} 
+//	@Override
+//	public void run() {
+//		try {
+//			reentrant.await();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
 	//*********4、1、6 使用多个Condition实现等待/通知******************************//
 	/**
 	 * 通过实验可以得知，使用ReentrantLock对象可以唤醒指定的线程，这是控制部分线程行为的方便方式。
@@ -619,4 +619,68 @@ public class MyThread extends Thread{
 	 */
 	
 	//*********4、2 、1 读读共享******************************//
+	//*********4、2 、2读写互斥******************************//
+	//*********4、2 、3写读互斥******************************//
+	//*********4、2 、4写写互斥******************************//
+	
+	
+	//*********5、定时器 Timer******************************//
+	/**
+	 * <p>如何实现指定时间执行任务
+	 * <p>如何实现按指定周期执行任务
+	 */
+	
+	//********5.1 定时器Timer的使用******************************//
+	//*********5.1.1 方法schedule(TimerTask task,Date time)******************************//
+	/**
+	 * <p>该方法的作用是在指定的日期执行一次某任务
+	 */
+	
+	
+	
+	
+	
+	//*********6、单利模式与多线程******************************//
+	
+	//*********6、1立即加载/"饿汉模式"******************************//
+    /**
+     * 什么是立即加载，就是使用类的时候已经将对象创建
+     */
+	
+//	@Override
+//	public void run(){
+//		System.out.println(Singleton.getInstance().hashCode());
+//	}
+	
+	//*********6、2延迟加载/懒汉模式******************************//
+	/**
+	 * <p>是在调用方法时实例才被创建
+	 * <p>缺点：在多线程的环境下，根本不可能保持单例的状态
+	 * <p>解决方案1、synchronized关键字同步方法，缺点运行效率非常低；2、同步代码块，缺点也是效率低；3、对于重要的代码单独同步
+	 * 改方法运行效率高，但是无法解决得到的同一个实例对象的结果；4使用DCL双检查锁机制；volatile、synchronized。
+	 */
+	
+	//*********6、3使用静态内置类实现单利模式"******************************//
+	//*********6、4序列化与反序列化的单例模式******************************//
+	//*********6、5使用static代码块实现单利模式******************************//
+	
+	//*********7、拾遗增补******************************//
+	/**
+	 * 线程组的使用
+	 * 如何切换线程状态
+	 * SimpleDataFormat类与多线程的解决方法
+	 * 如何处于线程异常
+	 */
+	
+	//*********7、1线程的状态******************************//
+	
+	//*********7.1.1 验证new 、runnable、terminatd******************************//
+	public MyThread(){
+		System.out.println("构造方法中的状态： "+Thread.currentThread().getState());
+	}
+	@Override
+	public void run(){
+		System.out.println("run方法中的状态： "+Thread.currentThread().getState());
+	}
 }
+
