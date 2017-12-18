@@ -1,5 +1,7 @@
 package com.nilo.source;
 
+import java.util.ArrayList;
+
 /**
  * Java中hashCode的作用
  * @author GaoQun
@@ -35,6 +37,5 @@ public class HashCode {
 	
 //	Object obj=new Object();
 	public static void main(String[] args) {
-		
 	}
 }
