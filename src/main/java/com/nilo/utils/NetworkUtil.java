@@ -2,6 +2,7 @@ package com.nilo.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -114,7 +115,7 @@ public abstract class NetworkUtil {
         return localAddress;
     }
 
-    private static final Map<String, String> hostNameCache = new HashMap<>(32);
+    private static final Map<String, String> hostNameCache = new HashMap<String, String>(32);
     public static String getHostName(String address) {
         try {
             int i = address.indexOf(':');

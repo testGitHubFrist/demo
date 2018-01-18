@@ -92,7 +92,7 @@ public abstract class ObjectUtil {
         BeanWrapper sourceBw = PropertyAccessorFactory.forBeanPropertyAccess(source);
         BeanWrapper targetBw = PropertyAccessorFactory.forBeanPropertyAccess(target);
         //源对象全部属性
-        List<String> sourceFieldNames = new ArrayList<>();
+        List<String> sourceFieldNames = new ArrayList<String>();
         Class<?> sourceClass = source.getClass();
         do {
             Field[] sourceFields = sourceClass.getDeclaredFields();
@@ -134,7 +134,7 @@ public abstract class ObjectUtil {
         BeanWrapper targetBw = PropertyAccessorFactory.forBeanPropertyAccess(target);
 
         Field[] sourceFields = source.getClass().getDeclaredFields();
-        List<String> sourceFieldNames = new ArrayList<>();
+        List<String> sourceFieldNames = new ArrayList<String>();
         for(Field field : sourceFields){
             sourceFieldNames.add(field.getName());
         }
@@ -165,7 +165,7 @@ public abstract class ObjectUtil {
         BeanWrapper targetBw = PropertyAccessorFactory.forBeanPropertyAccess(target);
 
         Field[] sourceFields = source.getClass().getDeclaredFields();
-        List<String> sourceFieldNames = new ArrayList<>();
+        List<String> sourceFieldNames = new ArrayList<String>();
         for(Field field : sourceFields){
             sourceFieldNames.add(field.getName());
         }

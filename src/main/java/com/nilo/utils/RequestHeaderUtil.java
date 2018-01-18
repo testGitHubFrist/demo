@@ -3,6 +3,7 @@ package com.nilo.utils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public abstract class RequestHeaderUtil {
      * @return
      */
     public static Map<String,String> getHeaderMap(HttpServletRequest request){
-        Map<String, String> result = new HashMap<>();
+        Map<String, String> result = new HashMap<String, String>();
         Enumeration<String> headerNames = request.getHeaderNames();
         for (Enumeration enumeration = headerNames; enumeration.hasMoreElements(); ) {
             String name = enumeration.nextElement().toString();
@@ -39,7 +40,7 @@ public abstract class RequestHeaderUtil {
      * @return
      */
     public static Map<String,String> getHeaderMap(HttpServletRequest request, String[] headerNames){
-        Map<String, String> result = new HashMap<>();
+        Map<String, String> result = new HashMap<String, String>();
         for(String name : headerNames){
             String value = request.getHeader(name);
             result.put(name, value);

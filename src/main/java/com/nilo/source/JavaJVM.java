@@ -10,4 +10,8 @@ public class JavaJVM {
 	}
 	
 	//描述一个Java文件的执行过程
+	
+	//详细深入分析 Java ClassLoader 工作机制
+    // http://www.54tianzhisheng.cn/2017/03/26/%E8%AF%A6%E7%BB%86%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%20Java%20ClassLoader%20%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6/
+
 }

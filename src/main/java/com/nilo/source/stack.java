@@ -114,7 +114,7 @@ public class stack extends JFrame {
 
 private String calculate(String input) throws MyException{				//计算函数
 	String[] comput = input.split(" ");					
-	Stack<Double> stack = new Stack<>();
+	Stack<Double> stack = new Stack<Double>();
 	Double m = Double.parseDouble(comput[0]);
 	stack.push(m);										//第一个操作数入栈
 	

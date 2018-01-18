@@ -1,6 +1,6 @@
 package com.nilo.source;
 
-import java.util.ArrayList;
+import org.apache.james.mime4j.codec.EncoderUtil.Encoding;
 
 /**
  * Java中hashCode的作用
@@ -38,4 +38,8 @@ public class HashCode {
 //	Object obj=new Object();
 	public static void main(String[] args) {
 	}
+	
+	//HashMap、Hashtable、HashSet 和 ConcurrentHashMap 的比较
+	  //http://www.54tianzhisheng.cn/2017/06/10/HashMap-Hashtable/
+	
 }
