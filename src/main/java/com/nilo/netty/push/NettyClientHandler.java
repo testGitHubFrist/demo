@@ -33,18 +33,17 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<BaseMsg> {
             IdleStateEvent e = (IdleStateEvent) evt;
             switch (e.state()) {
                 case WRITER_IDLE:
-                	System.out.println("send ping to server---date=" + new Date());
                     PingMsg pingMsg=new PingMsg();
                     ctx.writeAndFlush(pingMsg);
                     UNCONNECT_NUM++;
-                    System.err.println("writer_idle over. and UNCONNECT_NUM=" + UNCONNECT_NUM);
+                    System.err.println("服务端没有推送写操作" + UNCONNECT_NUM);
                     break;
                 case READER_IDLE:  
-                	System.err.println("reader_idle over.");
+                	System.err.println("服务端没有推送读");
                 	UNCONNECT_NUM++;
                 	//读取服务端消息超时时，直接断开该链接，并重新登录请求，建立通道
                 case ALL_IDLE:
-                	System.err.println("all_idle over.");
+                	System.err.println("服务端没有推送");
                 	UNCONNECT_NUM++;
                 	//读取服务端消息超时时，直接断开该链接，并重新登录请求，建立通道
                 default:
@@ -65,7 +64,6 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<BaseMsg> {
                 channelHandlerContext.writeAndFlush(loginMsg);
             }break;
             case PING:{
-                System.out.println("receive server ping ---date=" + new Date());
                 ReplyMsg replyPing=new ReplyMsg();
                 ReplyClientBody body = new ReplyClientBody("send client msg.");
                 replyPing.setBody(body);
@@ -82,7 +80,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<BaseMsg> {
                 ReplyMsg replyMsg=(ReplyMsg)baseMsg;
                 ReplyServerBody replyServerBody=(ReplyServerBody)replyMsg.getBody();
                 UNCONNECT_NUM = 0;
-                System.out.println("UNCONNECT_NUM="+ UNCONNECT_NUM + ",receive server replymsg: "+replyServerBody.getServerInfo());
+                System.out.println("UNCONNECT_NUM="+ UNCONNECT_NUM + ",接收到服务端回复消息: "+replyServerBody.getServerInfo());
             }
             default:break;
         }

@@ -32,18 +32,17 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<BaseMsg> {
 	            IdleStateEvent e = (IdleStateEvent) evt;
 	            switch (e.state()) {
 	                case WRITER_IDLE:
-	                	System.out.println("send ping to client---date=" + new Date());
 	                    PingMsg pingMsg=new PingMsg();
 	                    ctx.writeAndFlush(pingMsg);
 	                    UNCONNECT_NUM_S++;
-	                    System.err.println("writer_idle over. and UNCONNECT_NUM_S=" + UNCONNECT_NUM_S);
+	                    System.err.println("客户端写操作间隔5秒没有进行操作了。。。。。,所以进行一次连接" + UNCONNECT_NUM_S);
 	                    break;
 	                case READER_IDLE:  
-	                	System.err.println("reader_idle over.");
+	                	System.err.println("客户端读操作间隔5秒没有进行操作了。。。。。");
 	                	UNCONNECT_NUM_S++;
 	                	//读取服务端消息超时时，直接断开该链接，并重新登录请求，建立通道
 	                case ALL_IDLE:
-	                	System.err.println("all_idle over.");
+	                	System.err.println("客户端连接超时了");
 	                	UNCONNECT_NUM_S++;
 	                	//读取服务端消息超时时，直接断开该链接，并重新登录请求，建立通道
 	                default:
@@ -86,13 +85,15 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<BaseMsg> {
             	  System.err.println("ping over.");
             }break;
             case ASK:{
+            	
                 //收到客户端的请求
                 AskMsg askMsg=(AskMsg)baseMsg;
                 if("authToken".equals(askMsg.getParams().getAuth())){
-                    ReplyServerBody replyBody=new ReplyServerBody("receive client askmsg:" + askMsg.getParams().getContent());
-                    ReplyMsg replyMsg=new ReplyMsg();
-                    replyMsg.setBody(replyBody);
-                    NettyChannelMap.get(askMsg.getClientId()).writeAndFlush(replyMsg);
+                	System.out.println("服务端收到你的消息为:" + askMsg.getParams().getContent());
+//                    ReplyServerBody replyBody=new ReplyServerBody("retrunCode=100");
+//                    ReplyMsg replyMsg=new ReplyMsg();
+//                    replyMsg.setBody(replyBody);
+//                    NettyChannelMap.get(askMsg.getClientId()).writeAndFlush(replyMsg);
                 }
             }break;
             case REPLY:{

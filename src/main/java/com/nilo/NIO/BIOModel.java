@@ -15,7 +15,7 @@ public class BIOModel {
 
 	public static void main(String[] args) {
 		ExecutorService pool =Executors.newCachedThreadPool();
-		int port=8088;
+		int port=9999;
 		try {
 			//1、创建一个服务器端Socket，即ServerSocket，指定绑定的端口，并监听此端口
 			ServerSocket serverSocket=new ServerSocket(port);	

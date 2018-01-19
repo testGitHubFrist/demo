@@ -15,6 +15,7 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
@@ -46,7 +47,7 @@ public class NettyServerBootstrap {
             @Override
             protected void initChannel(SocketChannel socketChannel) throws Exception {
                 ChannelPipeline p = socketChannel.pipeline();
-              p.addLast(new IdleStateHandler(10,5,0));
+              p.addLast(new IdleStateHandler(10,10,20));
                 p.addLast(new ObjectEncoder());
                 p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
                 p.addLast(new NettyServerHandler());
@@ -57,20 +58,28 @@ public class NettyServerBootstrap {
             System.out.println("服务器 start---------------");
         }
     }
-    public static void main(String []args) throws InterruptedException {
+    public static void main(String []args) throws InterruptedException, IOException {
         NettyServerBootstrap bootstrap=new NettyServerBootstrap(9999);
         while (true){
             SocketChannel channel=(SocketChannel)NettyChannelMap.get("001");
             if(channel!=null){
-                AskMsg askMsg=new AskMsg();
-                AskParams msg=new AskParams();
-                msg.setAuth("authToken");
-                msg.setContent("测试");
-                askMsg.setParams(msg);
-                channel.writeAndFlush(askMsg);
+
+            	BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+                while (true) {
+                    String msg = console.readLine();
+                    if (msg == null) {
+                        break;
+                    } else if ("bye".equals(msg.toLowerCase())) {
+                        break;
+                    } else if ("ping".equals(msg.toLowerCase())) {
+                    } else {
+                      ReplyMsg replyMsg=new ReplyMsg();
+                      ReplyServerBody body=new ReplyServerBody(msg);
+                      replyMsg.setBody(body);
+                      channel.writeAndFlush(replyMsg);
+                    }
+                }
             }
-            TimeUnit.SECONDS.sleep(10);
-            
         }
     }
 }

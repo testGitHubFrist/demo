@@ -13,7 +13,7 @@ public class TimeServer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int port =8090;
+		int port =9999;
 		ServerSocket server=null;
 		ExecutorService pool=Executors.newFixedThreadPool(5);
 		try {

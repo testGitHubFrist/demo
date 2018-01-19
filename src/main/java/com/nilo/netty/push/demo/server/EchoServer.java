@@ -2,9 +2,11 @@ package com.nilo.netty.push.demo.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.net.InetSocketAddress;
@@ -16,19 +18,10 @@ import java.net.InetSocketAddress;
  */
 public class EchoServer {
 
-	private final int port;
-	
-	public EchoServer(int port){
-		this.port=port;
-	}
 	
 	public static void main(String[] args)  throws Exception{
-		if(args.length!=1){
-			System.err.println("usage:"+EchoServer.class.getSimpleName()+" <port> ");
-		}
-		int prot=Integer.parseInt(args[0]);//监听端口
 		
-		new EchoServer(prot).start();//服务启动方法
+		new EchoServer().start();//服务启动方法
 	}
 	
 	/**
@@ -42,16 +35,25 @@ public class EchoServer {
 			ServerBootstrap b=new ServerBootstrap();
 			b.group(group)
 			    .channel(NioServerSocketChannel.class)//指定所使用的NIO传输Channel
-			    .localAddress(new InetSocketAddress(port))//使用指定的端口设置套接字地址
+			    .localAddress(new InetSocketAddress(8090))//使用指定的端口设置套接字地址
 			    //添加业务处理ChannelHandler 处理业务到子Channel的ChannelPipeline
-			    .childHandler(new ChannelInitializer<Channel>() {
+			    .childHandler(new ChannelInitializer<SocketChannel>() {
 					@Override
-					protected void initChannel(Channel ch) throws Exception {
+					protected void initChannel(SocketChannel ch) throws Exception {
+						System.out.println("服务端启动...");
 						ch.pipeline().addLast(new EchoServerChannel());
 					}
 				});
+			//绑定端口，同步等待成功
+			ChannelFuture f=b.bind(8090).sync();
+			
+			//等待服务端监听端口关闭
+			f.channel().closeFuture().sync();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			group.shutdownGracefully();
 		}
 	}
 }
