@@ -1,4 +1,4 @@
-package com.nilo.source;
+package com.nilo.source.stack;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

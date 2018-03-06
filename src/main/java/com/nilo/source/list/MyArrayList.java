@@ -1,4 +1,4 @@
-package com.nilo.source;
+package com.nilo.source.list;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import java.util.Iterator;
  *
  * @param <AnyType>
  */
-public class arryList<AnyType> implements Iterable<AnyType> {
+public class MyArrayList<AnyType> implements Iterable<AnyType> {
 
 	@Override
 	public Iterator<AnyType> iterator() {
@@ -161,7 +161,7 @@ public class arryList<AnyType> implements Iterable<AnyType> {
 		}
 		
 		public void remove(){
-			arryList.this.remove(current--);
+			MyArrayList.this.remove(current--);
 		}
 		
 	}

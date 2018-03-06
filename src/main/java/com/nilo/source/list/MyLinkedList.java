@@ -1,4 +1,4 @@
-package com.nilo.source;
+package com.nilo.source.list;
 
 import java.util.Iterator;
 
@@ -7,14 +7,14 @@ import java.util.Iterator;
  * @author 张善闯
  *
  */
-public class LinkedList1<AnyType> implements Iterable<AnyType> {
+public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
 	private int theSize;
 	private int modCount=0;
 	private Node<AnyType> benginMarker;
 	private Node<AnyType> endMarker;
 	
-	public LinkedList1(){
+	public MyLinkedList(){
 		clear();
 	}
 	

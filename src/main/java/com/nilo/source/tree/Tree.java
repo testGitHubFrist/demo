@@ -1,4 +1,4 @@
-package com.nilo.source;
+package com.nilo.source.tree;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,26 +13,27 @@ import com.alibaba.druid.support.json.JSONUtils;
 public class Tree {
 
 	/*
-	 * 1 / \ 2 3 / \ \ 4 5 6
+	 *     1
+	 *    / \
+	 *   2   3
+	 *  / \ / 
+	 *  4 5 6 
 	 */
 	public static void main(String[] args) {
-//		TreeNode r1 = new TreeNode(1);
-//		TreeNode r2 = new TreeNode(2);
-//		TreeNode r3 = new TreeNode(3);
-//		TreeNode r4 = new TreeNode(4);
-//		TreeNode r5 = new TreeNode(5);
-//		TreeNode r6 = new TreeNode(6);
-//		r1.left = r2;
-//		r1.right = r3;
-//		r2.left = r4;
-//		r2.right = r5;
-//		r3.right = r6;
+		TreeNode r1 = new TreeNode(1);
+		TreeNode r2 = new TreeNode(2);
+		TreeNode r3 = new TreeNode(3);
+		TreeNode r4 = new TreeNode(4);
+		TreeNode r5 = new TreeNode(5);
+		TreeNode r6 = new TreeNode(6);
+		r1.left = r2;
+		r1.right = r3;
+		r2.left = r4;
+		r2.right = r5;
+		r3.right = r6;
+		preorderTraversalRec(r1);
 //		System.out.println(isCompleteBinaryTree(r1));
 //		System.out.println(isCompleteBinaryTreeRec(r1));
-		HashSet set=new HashSet();
-		set.add("1");
-		set.add("1");
-		System.out.println(JSONUtils.toJSONString(set));
 
 	}
 

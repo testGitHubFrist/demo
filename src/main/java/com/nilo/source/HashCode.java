@@ -1,6 +1,7 @@
 package com.nilo.source;
 
-import org.apache.james.mime4j.codec.EncoderUtil.Encoding;
+import com.nilo.source.map.MyHashMap;
+
 
 /**
  * Java中hashCode的作用
@@ -37,9 +38,18 @@ public class HashCode {
 	
 //	Object obj=new Object();
 	public static void main(String[] args) {
+		MyHashMap<String,String > map=new MyHashMap<String, String>();
+//		map.put("key","hello");
+//		map.put("nihao", "yes");
+//		map.put("nihao", "yes三四三");
+//		int hash, K key, V value, int bucketIndex
+		map.addEntry(1000, "hello", "你好", 2);
+		map.addEntry(1001, "hai", "ok", 2);
 	}
 	
 	//HashMap、Hashtable、HashSet 和 ConcurrentHashMap 的比较
 	  //http://www.54tianzhisheng.cn/2017/06/10/HashMap-Hashtable/
+	
+	
 	
 }
